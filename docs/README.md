@@ -2,18 +2,19 @@
 
 当前有效文档建议按以下顺序阅读：
 
-1. `01-prd-v0.2.md`：产品需求文档，定义目标用户、MVP 范围、输入输出和验收标准。
-2. `02-agent-system-design-v0.1.md`：Agent 系统设计，定义 Harness、多 Agent 分工、工作流、结构化对象、记忆和评测。
-3. `03-interview-generation-spec-v0.1.md`：完整面试备战包生成规格，定义题库和备战手册的生成要求。
-4. `04-single-answer-evaluation-spec-v0.1.md`：单题模拟回答评分规格，定义评分维度、输出格式、追问和记忆更新规则。
-5. `05-database-schema-design-v0.1.md`：数据库表设计，定义材料、备战包、题库、评分、记忆、日志和评测相关表。
-6. `06-pre-implementation-checklist-v0.1.md`：编码前确认清单，说明正式写代码前还建议补齐哪些工程设计文件。
-7. `07-tech-stack-and-project-structure-v0.1.md`：技术栈与项目结构，确认 FastAPI、SQLAlchemy、Alembic、PostgreSQL、轻量 Harness 和目录组织。
-8. `08-api-design-v0.1.md`：API 设计，定义材料上传、简历/JD/面经解析、备战包生成、单题评分和报告导出接口。
-9. `09-pydantic-schema-design-v0.1.md`：Pydantic Schema 设计，定义 Agent 结构化输出和 API 返回对象。
-10. `10-agent-prompts-and-routing-v0.1.md`：Agent Prompt 与路由设计，定义各 Agent 输入输出、Prompt 版本、路由和失败处理。
-11. `11-development-roadmap-v0.1.md`：开发路线图，定义从脚手架到 Agent 日志的里程碑。
-12. `12-future-improvements-v0.1.md`：后续改进与优化清单，记录 MVP 后可以增强的方向。
+1. `00-project-handoff-summary.md`：项目交接摘要，适合复制到另一台电脑后快速恢复上下文。
+2. `01-prd-v0.2.md`：产品需求文档，定义目标用户、MVP 范围、输入输出和验收标准。
+3. `02-agent-system-design-v0.1.md`：Agent 系统设计，定义 Harness、多 Agent 分工、工作流、结构化对象、记忆和评测。
+4. `03-interview-generation-spec-v0.1.md`：完整面试备战包生成规格，定义题库和备战手册的生成要求。
+5. `04-single-answer-evaluation-spec-v0.1.md`：单题模拟回答评分规格，定义评分维度、输出格式、追问和记忆更新规则。
+6. `05-database-schema-design-v0.1.md`：数据库表设计，定义材料、备战包、题库、评分、记忆、日志和评测相关表。
+7. `06-pre-implementation-checklist-v0.1.md`：编码前确认清单，说明正式写代码前还建议补齐哪些工程设计文件。
+8. `07-tech-stack-and-project-structure-v0.1.md`：技术栈与项目结构，确认 FastAPI、SQLAlchemy、Alembic、PostgreSQL、轻量 Harness 和目录组织。
+9. `08-api-design-v0.1.md`：API 设计，定义材料上传、简历/JD/面经解析、备战包生成、单题评分和报告导出接口。
+10. `09-pydantic-schema-design-v0.1.md`：Pydantic Schema 设计，定义 Agent 结构化输出和 API 返回对象。
+11. `10-agent-prompts-and-routing-v0.1.md`：Agent Prompt 与路由设计，定义各 Agent 输入输出、Prompt 版本、路由和失败处理。
+12. `11-development-roadmap-v0.1.md`：开发路线图，定义从脚手架到 Agent 日志的里程碑。
+13. `12-future-improvements-v0.1.md`：后续改进与优化清单，记录 MVP 后可以增强的方向。
 
 历史草稿：
 
