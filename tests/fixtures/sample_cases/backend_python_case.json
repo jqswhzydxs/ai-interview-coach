@@ -1,0 +1,7 @@
+{
+  "resume_text": "Python backend developer. Built FastAPI services with PostgreSQL, SQLAlchemy, and background tasks.",
+  "jd_text": "Backend Engineer role requiring Python, FastAPI, PostgreSQL, API design, and testing practice.",
+  "preparation_goal": "Focus on FastAPI project details and database transaction explanations.",
+  "experience_text": "Interviewers asked about FastAPI dependency injection, database sessions, and error handling.",
+  "user_answer": "I implemented FastAPI APIs, separated service logic, and managed PostgreSQL transactions with SQLAlchemy."
+}

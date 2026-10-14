@@ -1,0 +1,7 @@
+{
+  "resume_text": "Java backend developer. Built Spring Boot APIs, MySQL schemas, and Redis caching for a campus system.",
+  "jd_text": "Backend Engineer role requiring Java, REST API design, MySQL, Redis, and service reliability.",
+  "preparation_goal": "Practice backend project deep dive and API design tradeoffs.",
+  "experience_text": "Interviewers asked about cache invalidation, SQL indexes, and project responsibility boundaries.",
+  "user_answer": "I built REST APIs, designed MySQL tables, and used Redis to reduce repeated queries."
+}

@@ -1,0 +1,7 @@
+{
+  "resume_text": "Go backend developer. Built Gin APIs, PostgreSQL data models, and message queue consumers.",
+  "jd_text": "Backend Engineer role requiring Go, HTTP API design, PostgreSQL, messaging, and production debugging.",
+  "preparation_goal": "Practice Go backend system design and production incident stories.",
+  "experience_text": "Interviewers asked about goroutine safety, queue retry strategy, and database indexes.",
+  "user_answer": "I developed Gin endpoints, consumed queue messages, and used indexes to improve query latency."
+}
