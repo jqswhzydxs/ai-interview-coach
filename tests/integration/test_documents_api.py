@@ -115,22 +115,56 @@ def test_upload_unsupported_file_type_returns_validation_error(client_and_sessio
     assert response.status_code == 422
     body = response.json()
     assert body["error"]["code"] == "VALIDATION_ERROR"
-    assert "Unsupported file type" in body["error"]["message"]
+    assert body["error"]["message"] == "File extension is not allowed"
+    assert list(get_settings().upload_dir.glob("*")) == []
 
 
-def test_upload_over_5mb_file_returns_validation_error(client_and_session) -> None:
+def test_upload_over_10_mib_file_returns_validation_error(client_and_session) -> None:
     client, _ = client_and_session
 
     response = client.post(
         "/api/v1/documents/upload",
         data={"document_type": "resume"},
-        files={"file": ("resume.txt", b"0" * (5 * 1024 * 1024 + 1), "text/plain")},
+        files={"file": ("resume.txt", b"0" * (10 * 1024 * 1024 + 1), "text/plain")},
     )
 
     assert response.status_code == 422
     body = response.json()
     assert body["error"]["code"] == "VALIDATION_ERROR"
-    assert "5MB" in body["error"]["message"]
+    assert body["error"]["message"] == "File exceeds upload size limit"
+    assert list(get_settings().upload_dir.glob("*")) == []
+
+
+def test_upload_rejects_mime_mismatch_without_residual_file(client_and_session) -> None:
+    client, _ = client_and_session
+
+    response = client.post(
+        "/api/v1/documents/upload",
+        data={"document_type": "resume"},
+        files={"file": ("resume.txt", b"safe text", "application/pdf")},
+    )
+
+    assert response.status_code == 422
+    assert response.json()["error"]["message"] == "File content type is not allowed"
+    assert list(get_settings().upload_dir.glob("*")) == []
+
+
+def test_upload_rejects_signature_mismatch_without_echoing_content(
+    client_and_session,
+) -> None:
+    client, _ = client_and_session
+    marker = "private-marker-must-not-be-echoed"
+
+    response = client.post(
+        "/api/v1/documents/upload",
+        data={"document_type": "resume"},
+        files={"file": ("resume.pdf", marker.encode(), "application/pdf")},
+    )
+
+    assert response.status_code == 422
+    assert response.json()["error"]["message"] == "File content does not match its extension"
+    assert marker not in response.text
+    assert list(get_settings().upload_dir.glob("*")) == []
 
 
 def test_invalid_document_type_returns_validation_error(client_and_session) -> None:

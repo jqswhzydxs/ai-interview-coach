@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 from app.agents.base import BaseAgent
+from app.schemas.prep_package import MatchReport
 
 
 class MatchingAgent(BaseAgent):
@@ -8,6 +9,13 @@ class MatchingAgent(BaseAgent):
     prompt_version = "matching_agent_v0.1"
 
     async def run(self, input_data: dict) -> dict:
+        return await self.run_with_fallback(
+            input_data,
+            MatchReport,
+            self._rule_based_report,
+        )
+
+    def _rule_based_report(self) -> dict:
         return {
             "schema_version": "v0.1",
             "generated_at": datetime.now(timezone.utc),

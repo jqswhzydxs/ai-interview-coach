@@ -6,10 +6,20 @@ from sqlalchemy.orm import Session
 from app.agents.answer_evaluator import AnswerEvaluatorAgent
 from app.agents.harness import AgentHarness
 from app.agents.llm_client import get_llm_client
+from app.agents.source_quality import source_record, source_record_from_run
 from app.core.config import get_settings
 from app.core.errors import AppError, ErrorCode
+from app.db.models.agent_run import AgentRun
 from app.db.models.evaluation import AnswerEvaluation
+from app.db.models.interview_experience import ExperienceProfile
+from app.db.models.job_description import JDProfile
+from app.db.models.prep_package import (
+    InterviewPrepPackage,
+    MatchReport,
+    PrepPackageExperience,
+)
 from app.db.models.question import InterviewQuestion
+from app.db.models.resume import ResumeProfile
 from app.schemas.evaluation import AnswerEvaluation as AnswerEvaluationSchema
 from app.services.memory_service import MemoryService
 
@@ -23,9 +33,23 @@ class EvaluationService:
         user_answer: str,
         question_db_id: UUID | None = None,
         custom_question_text: str | None = None,
+        originating_workflow_job_id: UUID | None = None,
     ) -> tuple[AnswerEvaluation, UUID]:
+        if originating_workflow_job_id is not None:
+            existing = db.scalar(
+                select(AnswerEvaluation).where(
+                    AnswerEvaluation.originating_workflow_job_id
+                    == originating_workflow_job_id
+                )
+            )
+            if existing is not None and existing.agent_run_id is not None:
+                return existing, existing.agent_run_id
         question: InterviewQuestion | None = None
         prep_package_id: UUID | None = None
+        resume_profile_json: dict | None = None
+        jd_profile_json: dict | None = None
+        scoring_anchors: list[dict] = []
+        source_context: dict[str, dict] = {}
         if question_db_id is not None:
             question = db.get(InterviewQuestion, question_db_id)
             if question is None:
@@ -33,9 +57,66 @@ class EvaluationService:
             question_text = question.question_text
             prep_package_id = question.prep_package_id
             question_id = question.question_id
+            scoring_anchors = question.scoring_anchors_json
+            prep_package = db.get(InterviewPrepPackage, prep_package_id)
+            if prep_package is not None:
+                resume_profile = db.get(ResumeProfile, prep_package.resume_profile_id)
+                jd_profile = db.get(JDProfile, prep_package.jd_profile_id)
+                resume_profile_json = (
+                    resume_profile.profile_json if resume_profile is not None else None
+                )
+                jd_profile_json = jd_profile.profile_json if jd_profile is not None else None
+                source_context = {
+                    "question": source_record_from_run(
+                        db.get(AgentRun, prep_package.agent_run_id)
+                        if prep_package.agent_run_id is not None
+                        else None
+                    ),
+                    "resume_profile": source_record_from_run(
+                        db.get(AgentRun, resume_profile.agent_run_id)
+                        if resume_profile is not None
+                        and resume_profile.agent_run_id is not None
+                        else None
+                    ),
+                    "jd_profile": source_record_from_run(
+                        db.get(AgentRun, jd_profile.agent_run_id)
+                        if jd_profile is not None and jd_profile.agent_run_id is not None
+                        else None
+                    ),
+                }
+                match_report = db.scalars(
+                    select(MatchReport)
+                    .where(MatchReport.prep_package_id == prep_package.id)
+                    .order_by(MatchReport.created_at.desc())
+                ).first()
+                source_context["matching"] = source_record_from_run(
+                    db.get(AgentRun, match_report.agent_run_id)
+                    if match_report is not None and match_report.agent_run_id is not None
+                    else None
+                )
+                experience_links = db.scalars(
+                    select(PrepPackageExperience).where(
+                        PrepPackageExperience.prep_package_id == prep_package.id
+                    )
+                ).all()
+                for index, link in enumerate(experience_links, start=1):
+                    experience_profile = (
+                        db.get(ExperienceProfile, link.experience_profile_id)
+                        if link.experience_profile_id is not None
+                        else None
+                    )
+                    source_context[f"experience_profile_{index}"] = (
+                        source_record_from_run(
+                            db.get(AgentRun, experience_profile.agent_run_id)
+                            if experience_profile is not None
+                            and experience_profile.agent_run_id is not None
+                            else None
+                        )
+                    )
         elif custom_question_text:
             question_text = custom_question_text
             question_id = None
+            source_context = {"question": source_record("user")}
         else:
             raise AppError(
                 ErrorCode.VALIDATION_ERROR,
@@ -52,25 +133,42 @@ class EvaluationService:
                 "question_id": question_id,
                 "question_text": question_text,
                 "user_answer": user_answer,
+                "scoring_anchors": scoring_anchors,
+                "resume_profile": resume_profile_json,
+                "jd_profile": jd_profile_json,
+                "source_context": source_context,
             },
             output_schema=AnswerEvaluationSchema,
         )
         output = result.output
         dimension_scores = {item.name: item.score for item in output.dimension_scores}
+        persisted_source_context = {
+            **source_context,
+            "answer_evaluation": source_record(
+                result.metadata.execution_mode,
+                agent_run_id=result.agent_run_id,
+            ),
+        }
         evaluation = AnswerEvaluation(
+            originating_workflow_job_id=originating_workflow_job_id,
             user_id=user_id,
             prep_package_id=prep_package_id,
             question_db_id=question_db_id,
             custom_question_text=custom_question_text,
             user_answer=user_answer,
             agent_run_id=result.agent_run_id,
+            evaluation_mode=output.evaluation_mode,
+            score_available=output.score_available,
+            source_quality=output.source_quality,
+            source_context_json=persisted_source_context,
+            degradation_reasons_json=output.degradation_reasons,
             total_score=output.total_score,
-            relevance_score=dimension_scores.get("relevance", 0),
-            technical_accuracy_score=dimension_scores.get("technical_accuracy", 0),
-            project_specificity_score=dimension_scores.get("project_specificity", 0),
-            structure_score=dimension_scores.get("structure", 0),
-            communication_score=dimension_scores.get("communication", 0),
-            risk_control_score=dimension_scores.get("risk_control", 0),
+            relevance_score=dimension_scores.get("relevance"),
+            technical_accuracy_score=dimension_scores.get("technical_accuracy"),
+            project_specificity_score=dimension_scores.get("project_specificity"),
+            structure_score=dimension_scores.get("structure"),
+            communication_score=dimension_scores.get("communication"),
+            risk_control_score=dimension_scores.get("risk_control"),
             strengths_json=output.strengths,
             improvement_points_json=output.improvement_points,
             risks_json=output.risks,
@@ -126,6 +224,14 @@ class EvaluationService:
             "answer_evaluation_id": evaluation.id,
             "prep_package_id": evaluation.prep_package_id,
             "agent_run_id": evaluation.agent_run_id,
-            "total_score": float(evaluation.total_score),
+            "evaluation_mode": evaluation.evaluation_mode,
+            "score_available": evaluation.score_available,
+            "source_quality": evaluation.source_quality,
+            "degradation_reasons": evaluation.degradation_reasons_json,
+            "total_score": (
+                float(evaluation.total_score)
+                if evaluation.total_score is not None
+                else None
+            ),
             "created_at": evaluation.created_at,
         }

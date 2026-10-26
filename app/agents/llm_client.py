@@ -20,7 +20,30 @@ class LLMResponse(BaseModel):
     provider: str
     model_name: str
     content: dict
-    raw_text: str | None = None
+    usage: "TokenUsage | None" = None
+    raw_text: str | None = Field(default=None, exclude=True, repr=False)
+
+
+class TokenUsage(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    input_tokens: int | None = Field(default=None, ge=0)
+    output_tokens: int | None = Field(default=None, ge=0)
+    total_tokens: int | None = Field(default=None, ge=0)
+
+
+class LLMResponseError(RuntimeError):
+    """Safe provider-response error that never embeds raw model output."""
+
+    failure_type = "provider"
+
+    def __init__(self, message: str, *, usage: TokenUsage | None = None) -> None:
+        super().__init__(message)
+        self.usage = usage
+
+
+class LLMJSONError(LLMResponseError):
+    failure_type = "json"
 
 
 class LLMClient(Protocol):

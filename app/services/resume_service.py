@@ -1,5 +1,6 @@
 from uuid import UUID
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.agents.harness import AgentHarness
@@ -46,7 +47,21 @@ class ResumeService:
         db.refresh(resume)
         return resume
 
-    async def parse_resume(self, db: Session, *, resume_id: UUID) -> tuple[ResumeProfile, UUID]:
+    async def parse_resume(
+        self,
+        db: Session,
+        *,
+        resume_id: UUID,
+        originating_workflow_job_id: UUID | None = None,
+    ) -> tuple[ResumeProfile, UUID]:
+        if originating_workflow_job_id is not None:
+            existing = db.scalar(
+                select(ResumeProfile).where(
+                    ResumeProfile.originating_workflow_job_id == originating_workflow_job_id
+                )
+            )
+            if existing is not None and existing.agent_run_id is not None:
+                return existing, existing.agent_run_id
         resume = db.get(Resume, resume_id)
         if resume is None:
             raise AppError(ErrorCode.NOT_FOUND, "Resume not found", status_code=404)
@@ -70,6 +85,7 @@ class ResumeService:
         )
         output = result.output
         profile = ResumeProfile(
+            originating_workflow_job_id=originating_workflow_job_id,
             resume_id=resume.id,
             agent_run_id=result.agent_run_id,
             schema_version=output.schema_version,

@@ -71,3 +71,32 @@ def test_low_confidence_memory_update_is_not_persisted() -> None:
     stored = session.scalars(select(MemoryItem)).all()
     assert item is None
     assert stored == []
+
+
+def test_degraded_evaluation_memory_update_is_never_persisted() -> None:
+    session = make_session()
+    evaluation = create_evaluation(session, confidence=0.99)
+    evaluation.evaluation_mode = "degraded"
+    evaluation.score_available = False
+    evaluation.source_quality = "degraded"
+    evaluation.source_context_json = {
+        "question": {"execution_mode": "fallback", "source_quality": "degraded"}
+    }
+    evaluation.total_score = None
+    evaluation.relevance_score = None
+    evaluation.technical_accuracy_score = None
+    evaluation.project_specificity_score = None
+    evaluation.structure_score = None
+    evaluation.communication_score = None
+    evaluation.risk_control_score = None
+    evaluation.memory_update_json = {
+        "write_decision": "skip",
+        "skip_reason": {"code": "degraded_evaluation"},
+        "confidence": 0,
+    }
+    session.commit()
+
+    item = MemoryService().apply_memory_update(session, evaluation)
+
+    assert item is None
+    assert session.scalars(select(MemoryItem)).all() == []

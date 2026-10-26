@@ -20,6 +20,9 @@ class InterviewPrepPackage(Base):
     )
 
     id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
+    originating_workflow_job_id: Mapped[UUID | None] = mapped_column(
+        Uuid, ForeignKey("workflow_jobs.id"), nullable=True, unique=True
+    )
     user_id: Mapped[UUID] = mapped_column(Uuid, ForeignKey("users.id"), nullable=False)
     resume_id: Mapped[UUID] = mapped_column(Uuid, ForeignKey("resumes.id"), nullable=False)
     resume_profile_id: Mapped[UUID] = mapped_column(

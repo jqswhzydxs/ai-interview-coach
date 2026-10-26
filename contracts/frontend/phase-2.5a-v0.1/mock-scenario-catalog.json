@@ -1,0 +1,78 @@
+{
+  "scenario_count": 12,
+  "scenarios": [
+    {
+      "category": "processing",
+      "description": "Agent 运行详情处于进行中。",
+      "file": "mocks/agent-running.json",
+      "scenario_id": "agent-running"
+    },
+    {
+      "category": "empty",
+      "description": "没有历史评价时返回稳定空列表。",
+      "file": "mocks/empty-history.json",
+      "scenario_id": "empty-history"
+    },
+    {
+      "category": "degraded",
+      "description": "评价降级时不给出伪造分数。",
+      "file": "mocks/evaluator-degraded.json",
+      "scenario_id": "evaluator-degraded"
+    },
+    {
+      "category": "error",
+      "description": "文件类型或大小不符合约束。",
+      "file": "mocks/file-upload-failure.json",
+      "scenario_id": "file-upload-failure"
+    },
+    {
+      "category": "memory_safety",
+      "description": "来源不满足长期记忆写入条件时展示已阻断状态。",
+      "file": "mocks/memory-write-blocked.json",
+      "scenario_id": "memory-write-blocked"
+    },
+    {
+      "category": "error",
+      "description": "请求不满足 Schema 时返回字段级错误且不可原样重试。",
+      "file": "mocks/nonretryable-contract-error.json",
+      "scenario_id": "nonretryable-contract-error"
+    },
+    {
+      "category": "fallback",
+      "description": "题库由 fallback 产生，题目仍可浏览但来源质量必须可见。",
+      "file": "mocks/question-bank-fallback.json",
+      "scenario_id": "question-bank-fallback"
+    },
+    {
+      "category": "client_control",
+      "description": "取消和超时均保留用户输入并给出恢复动作。",
+      "file": "mocks/request-cancelled-timeout.json",
+      "scenario_id": "request-cancelled-timeout"
+    },
+    {
+      "category": "error",
+      "description": "Provider 暂时失败，前端提供明确重试动作。",
+      "file": "mocks/retryable-provider-error.json",
+      "scenario_id": "retryable-provider-error"
+    },
+    {
+      "category": "standard",
+      "description": "标准评价包含真实可用的总分和维度分。",
+      "file": "mocks/standard-evaluation.json",
+      "scenario_id": "standard-evaluation"
+    },
+    {
+      "category": "standard",
+      "description": "准备包完成后取得严格 8/8/9 的题库。",
+      "file": "mocks/standard-success.json",
+      "scenario_id": "standard-success"
+    },
+    {
+      "category": "fallback",
+      "description": "上游画像使用 fallback，界面展示来源质量和结构化原因。",
+      "file": "mocks/upstream-fallback.json",
+      "scenario_id": "upstream-fallback"
+    }
+  ],
+  "schema_version": "frontend-mock-v0.1"
+}

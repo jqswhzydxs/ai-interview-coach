@@ -41,7 +41,15 @@ async def create_evaluation(
         {
             "answer_evaluation_id": evaluation.id,
             "agent_run_id": agent_run_id,
-            "total_score": float(evaluation.total_score),
+            "evaluation_mode": evaluation.evaluation_mode,
+            "score_available": evaluation.score_available,
+            "source_quality": evaluation.source_quality,
+            "degradation_reasons": evaluation.degradation_reasons_json,
+            "total_score": (
+                float(evaluation.total_score)
+                if evaluation.total_score is not None
+                else None
+            ),
         },
         request.state.request_id,
     )

@@ -34,4 +34,42 @@
 10. 第一版支持 Markdown 报告导出，真实面试转写复盘和质量评测后台后置。
 11. 第一版先做后端 API，不做正式前端。
 12. 第一版采用轻量 Harness 自主管理多 Agent 调度，后续可替换为 OpenAI Agents SDK 或 LangGraph。
+
+## Phase 2.4C：确定性 metadata 校准
+
+- [Phase 2.4B 最终决策](39-phase-2-4b-final-decision-record-v0.1.md)：Candidate 不通过，不晋升；AI 盲评来源及 baseline 数量异常。
+- [Spec](40-phase-2-4c-metadata-calibration-spec-v0.1.md)
+- [Plan](41-phase-2-4c-metadata-calibration-plan-v0.1.md)
+- [Tasks](42-phase-2-4c-metadata-calibration-tasks-v0.1.md)
+- [Risk Analysis](43-phase-2-4c-metadata-calibration-risk-analysis-v0.1.md)
+- [离线验证报告](44-phase-2-4c-offline-validation-report-v0.1.md)
+- [Metadata review finalizer](45-phase-2-4c-metadata-review-finalizer-v0.1.md)
+
+Metadata v2 仅作为离线候选；生产默认仍为 QuestionBankAgent，等待新的独立 metadata 盲评。
 13. 后续优化方向单独维护在 `12-future-improvements-v0.1.md`。
+
+## Phase 2.5B：Mock-first 前端脚手架
+
+- [Spec](118-phase-2.5b-mock-frontend-spec-v0.1.md)
+- [Plan](119-phase-2.5b-mock-frontend-plan-v0.1.md)
+- [Tasks](120-phase-2.5b-mock-frontend-tasks-v0.1.md)
+- [Risk Analysis](121-phase-2.5b-mock-frontend-risk-analysis-v0.1.md)
+- [Frontend Architecture](122-phase-2.5b-frontend-architecture-v0.1.md)
+- [Mock Runtime Guide](123-phase-2.5b-mock-runtime-guide-v0.1.md)
+- [Accessibility Validation](124-phase-2.5b-accessibility-validation-v0.1.md)
+- [Security Validation](125-phase-2.5b-security-validation-v0.1.md)
+- [Offline Validation Report](126-phase-2.5b-offline-validation-report-v0.1.md)
+
+当前状态为 `mock_scaffold_complete`；开发与测试默认只使用 MSW，不代表已经完成真实 API 联调或生产 Agent 切换。
+
+## Phase 2.5C：本机真实 API 联调与浏览器基线
+
+- [Spec](127-phase-2.5c-local-api-integration-spec-v0.1.md)
+- [Plan](128-phase-2.5c-local-api-integration-plan-v0.1.md)
+- [Tasks 与验证记录](129-phase-2.5c-tasks-and-validation-record-v0.1.md)
+- [Risk Analysis](130-phase-2.5c-risk-analysis-v0.1.md)
+- [Local Integration Runbook](131-phase-2.5c-local-integration-runbook-v0.1.md)
+- [Browser / Visual QA Report](132-phase-2.5c-browser-visual-qa-report-v0.1.md)
+- [Offline Validation Report](133-phase-2.5c-offline-validation-report-v0.1.md)
+
+本阶段只联调本机 FastAPI、隔离 SQLite 与 loopback HTTP；Provider calls 为 0，生产默认 Agent 保持不变。

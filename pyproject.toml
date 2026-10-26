@@ -34,3 +34,6 @@ packages = ["app"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+markers = [
+    "real_llm: explicitly enabled test that may contact a configured real LLM provider",
+]

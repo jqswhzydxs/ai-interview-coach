@@ -7,8 +7,10 @@ from app.agents.harness import AgentHarness
 from app.agents.llm_client import get_llm_client
 from app.agents.matching_agent import MatchingAgent
 from app.agents.question_bank_agent import QuestionBankAgent
+from app.agents.source_quality import source_record, source_record_from_run
 from app.core.config import get_settings
 from app.core.errors import AppError, ErrorCode
+from app.db.models.agent_run import AgentRun
 from app.db.models.interview_experience import ExperienceProfile, InterviewExperience
 from app.db.models.job_description import JDProfile, JobDescription
 from app.db.models.prep_package import (
@@ -33,7 +35,17 @@ class PrepPackageService:
         interview_experience_ids: list[UUID] | None = None,
         preparation_goal: str,
         title: str | None = None,
+        originating_workflow_job_id: UUID | None = None,
     ) -> tuple[InterviewPrepPackage, UUID]:
+        if originating_workflow_job_id is not None:
+            existing = db.scalar(
+                select(InterviewPrepPackage).where(
+                    InterviewPrepPackage.originating_workflow_job_id
+                    == originating_workflow_job_id
+                )
+            )
+            if existing is not None and existing.status == "ready" and existing.agent_run_id:
+                return existing, existing.agent_run_id
         interview_experience_ids = interview_experience_ids or []
         resume = db.get(Resume, resume_id)
         job = db.get(JobDescription, job_description_id)
@@ -63,6 +75,7 @@ class PrepPackageService:
             )
 
         package = InterviewPrepPackage(
+            originating_workflow_job_id=originating_workflow_job_id,
             user_id=user_id,
             resume_id=resume.id,
             resume_profile_id=resume_profile.id,
@@ -104,6 +117,31 @@ class PrepPackageService:
             for _, experience_profile in experience_links
             if experience_profile is not None
         ]
+        experience_profiles = [
+            experience_profile.profile_json
+            for _, experience_profile in experience_links
+            if experience_profile is not None
+        ]
+        profile_source_context = {
+            "resume_profile": source_record_from_run(
+                db.get(AgentRun, resume_profile.agent_run_id)
+                if resume_profile.agent_run_id is not None
+                else None
+            ),
+            "jd_profile": source_record_from_run(
+                db.get(AgentRun, jd_profile.agent_run_id)
+                if jd_profile.agent_run_id is not None
+                else None
+            ),
+        }
+        for index, (_, experience_profile) in enumerate(experience_links, start=1):
+            if experience_profile is None:
+                continue
+            profile_source_context[f"experience_profile_{index}"] = source_record_from_run(
+                db.get(AgentRun, experience_profile.agent_run_id)
+                if experience_profile.agent_run_id is not None
+                else None
+            )
         matching_result = await AgentHarness().run_agent(
             db=db,
             user_id=user_id,
@@ -112,11 +150,15 @@ class PrepPackageService:
             input_data={
                 "resume_profile_id": str(resume_profile.id),
                 "jd_profile_id": str(jd_profile.id),
+                "resume_profile": resume_profile.profile_json,
+                "jd_profile": jd_profile.profile_json,
                 "preparation_goal": preparation_goal,
                 "interview_experience_ids": [
                     str(experience.id) for experience, _ in experience_links
                 ],
                 "experience_profile_ids": experience_profile_ids,
+                "experience_profiles": experience_profiles,
+                "source_context": profile_source_context,
             },
             output_schema=MatchReportSchema,
         )
@@ -140,6 +182,14 @@ class PrepPackageService:
         db.add(match_report)
         db.commit()
 
+        question_source_context = {
+            **profile_source_context,
+            "matching": source_record(
+                matching_result.metadata.execution_mode,
+                agent_run_id=matching_result.agent_run_id,
+            ),
+        }
+
         question_result = await AgentHarness().run_agent(
             db=db,
             user_id=user_id,
@@ -148,11 +198,16 @@ class PrepPackageService:
             input_data={
                 "prep_package_id": str(package.id),
                 "match_report_id": str(match_report.id),
+                "match_report": match_output.model_dump(mode="json"),
+                "resume_profile": resume_profile.profile_json,
+                "jd_profile": jd_profile.profile_json,
                 "preparation_goal": preparation_goal,
                 "interview_experience_ids": [
                     str(experience.id) for experience, _ in experience_links
                 ],
                 "experience_profile_ids": experience_profile_ids,
+                "experience_profiles": experience_profiles,
+                "source_context": question_source_context,
             },
             output_schema=QuestionBank,
         )

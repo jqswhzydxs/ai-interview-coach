@@ -1,0 +1,42 @@
+{
+  "category": "error",
+  "data_classification": "synthetic_non_personal",
+  "description": "Provider 暂时失败，前端提供明确重试动作。",
+  "scenario_id": "retryable-provider-error",
+  "schema_version": "frontend-mock-v0.1",
+  "steps": [
+    {
+      "client_outcome": "completed",
+      "method": "POST",
+      "name": "retryable-provider-failure",
+      "path": "/api/v1/evaluations",
+      "request": {
+        "body": {
+          "custom_question_text": null,
+          "question_db_id": "00000000-0000-4000-8000-000000000701",
+          "user_answer": "合成回答。"
+        },
+        "headers": {
+          "x-request-id": "mock-retryable-provider-failure"
+        },
+        "query": {}
+      },
+      "response": {
+        "body": {
+          "error": {
+            "code": "AGENT_FAILED",
+            "details": {
+              "failure_category": "network"
+            },
+            "message": "Agent execution failed"
+          }
+        },
+        "status_code": 502
+      },
+      "ui": {
+        "retryable": true,
+        "state": "error"
+      }
+    }
+  ]
+}

@@ -3,7 +3,13 @@ import re
 
 import httpx
 
-from app.agents.llm_client import LLMRequest, LLMResponse
+from app.agents.llm_client import (
+    LLMJSONError,
+    LLMRequest,
+    LLMResponse,
+    LLMResponseError,
+    TokenUsage,
+)
 
 
 class OpenAICompatibleChatClient:
@@ -53,13 +59,29 @@ class OpenAICompatibleChatClient:
                 )
 
         response.raise_for_status()
-        response_json = response.json()
-        raw_text = response_json["choices"][0]["message"]["content"]
-        content = self._parse_json_content(raw_text)
+        try:
+            response_json = response.json()
+        except (json.JSONDecodeError, ValueError) as exc:
+            raise LLMJSONError("Provider returned an invalid JSON response envelope") from exc
+
+        usage = self._extract_usage(response_json)
+        try:
+            raw_text = response_json["choices"][0]["message"]["content"]
+        except (KeyError, IndexError, TypeError) as exc:
+            raise LLMResponseError(
+                "Provider response is missing the assistant message",
+                usage=usage,
+            ) from exc
+        try:
+            content = self._parse_json_content(raw_text)
+        except LLMJSONError as exc:
+            exc.usage = usage
+            raise
         return LLMResponse(
             provider=self.provider,
             model_name=self.model_name,
             content=content,
+            usage=usage,
             raw_text=raw_text,
         )
 
@@ -70,7 +92,40 @@ class OpenAICompatibleChatClient:
         fenced = re.fullmatch(r"```(?:json)?\s*(.*?)\s*```", stripped, flags=re.DOTALL)
         if fenced is not None:
             stripped = fenced.group(1).strip()
-        parsed = json.loads(stripped)
+        try:
+            parsed = json.loads(stripped)
+        except (json.JSONDecodeError, TypeError) as exc:
+            raise LLMJSONError("Model content is not a valid JSON object") from exc
         if not isinstance(parsed, dict):
-            raise ValueError("LLM response must be a JSON object")
+            raise LLMJSONError("Model content is not a JSON object")
         return parsed
+
+    def _extract_usage(self, response_json: dict) -> TokenUsage | None:
+        raw_usage = response_json.get("usage")
+        if not isinstance(raw_usage, dict):
+            return None
+
+        input_tokens = self._non_negative_int(
+            raw_usage.get("prompt_tokens", raw_usage.get("input_tokens"))
+        )
+        output_tokens = self._non_negative_int(
+            raw_usage.get("completion_tokens", raw_usage.get("output_tokens"))
+        )
+        total_tokens = self._non_negative_int(raw_usage.get("total_tokens"))
+        if total_tokens is None and input_tokens is not None and output_tokens is not None:
+            total_tokens = input_tokens + output_tokens
+        if input_tokens is None and output_tokens is None and total_tokens is None:
+            return None
+        return TokenUsage(
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            total_tokens=total_tokens,
+        )
+
+    @staticmethod
+    def _non_negative_int(value: object) -> int | None:
+        if isinstance(value, bool):
+            return None
+        if isinstance(value, int) and value >= 0:
+            return value
+        return None

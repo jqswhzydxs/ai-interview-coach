@@ -36,6 +36,9 @@ class ResumeProfile(Base):
     )
 
     id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
+    originating_workflow_job_id: Mapped[UUID | None] = mapped_column(
+        Uuid, ForeignKey("workflow_jobs.id"), nullable=True, unique=True
+    )
     resume_id: Mapped[UUID] = mapped_column(Uuid, ForeignKey("resumes.id"), nullable=False)
     agent_run_id: Mapped[UUID | None] = mapped_column(
         Uuid, ForeignKey("agent_runs.id"), nullable=True

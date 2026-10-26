@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 from app.agents.base import BaseAgent
+from app.schemas.experience import ExperienceProfile
 
 
 class ExperienceAnalyzerAgent(BaseAgent):
@@ -8,6 +9,13 @@ class ExperienceAnalyzerAgent(BaseAgent):
     prompt_version = "experience_analyzer_v0.1"
 
     async def run(self, input_data: dict) -> dict:
+        return await self.run_with_fallback(
+            input_data,
+            ExperienceProfile,
+            lambda: self._rule_based_profile(input_data),
+        )
+
+    def _rule_based_profile(self, input_data: dict) -> dict:
         raw_text = input_data.get("raw_text", "")
         topics = []
         for keyword in ["FastAPI", "database", "transaction", "API", "PostgreSQL"]:

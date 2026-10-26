@@ -1,0 +1,55 @@
+{
+  "category": "client_control",
+  "data_classification": "synthetic_non_personal",
+  "description": "取消和超时均保留用户输入并给出恢复动作。",
+  "scenario_id": "request-cancelled-timeout",
+  "schema_version": "frontend-mock-v0.1",
+  "steps": [
+    {
+      "client_outcome": "cancelled",
+      "method": "POST",
+      "name": "cancelled-prep-submit",
+      "path": "/api/v1/prep-packages",
+      "request": {
+        "body": {
+          "interview_experience_ids": [],
+          "job_description_id": "00000000-0000-4000-8000-000000000301",
+          "preparation_goal": "合成目标",
+          "resume_id": "00000000-0000-4000-8000-000000000201",
+          "title": null
+        },
+        "headers": {
+          "x-request-id": "mock-cancelled-prep-submit"
+        },
+        "query": {}
+      },
+      "response": null,
+      "ui": {
+        "retryable": true,
+        "state": "cancelled"
+      }
+    },
+    {
+      "client_outcome": "timeout",
+      "method": "POST",
+      "name": "timed-out-evaluation",
+      "path": "/api/v1/evaluations",
+      "request": {
+        "body": {
+          "custom_question_text": null,
+          "question_db_id": "00000000-0000-4000-8000-000000000701",
+          "user_answer": "合成回答。"
+        },
+        "headers": {
+          "x-request-id": "mock-timed-out-evaluation"
+        },
+        "query": {}
+      },
+      "response": null,
+      "ui": {
+        "retryable": true,
+        "state": "error"
+      }
+    }
+  ]
+}

@@ -1,0 +1,299 @@
+[
+  {
+    "degradation_fields": [
+      "execution_mode",
+      "fallback_reason",
+      "failure_types"
+    ],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "步骤、execution_mode、fallback_reason、重试和 Token 可用性。",
+    "loading_async_semantics": "pollable",
+    "method": "GET",
+    "nullable_fields": [
+      "model_name",
+      "prompt_version",
+      "latency_ms",
+      "token_usage.*",
+      "fallback_reason",
+      "error_message",
+      "finished_at",
+      "steps[].error_message",
+      "steps[].latency_ms"
+    ],
+    "operation_id": "get_agent_run_api_v1_agent_runs__agent_run_id__get",
+    "path": "/api/v1/agent-runs/{agent_run_id}",
+    "request_schema": "path:agent_run_id",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      422
+    ],
+    "frontend_display": "字段校验、保存中、禁止重复提交。",
+    "loading_async_semantics": "submitting",
+    "method": "POST",
+    "nullable_fields": [
+      "metadata"
+    ],
+    "operation_id": "create_text_document_api_v1_documents_text_post",
+    "path": "/api/v1/documents/text",
+    "request_schema": "application/json:#/components/schemas/TextDocumentCreate",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      422
+    ],
+    "frontend_display": "进度、类型/大小错误、取消。",
+    "loading_async_semantics": "uploading",
+    "method": "POST",
+    "nullable_fields": [],
+    "operation_id": "upload_document_api_v1_documents_upload_post",
+    "path": "/api/v1/documents/upload",
+    "request_schema": "multipart/form-data:#/components/schemas/Body_upload_document_api_v1_documents_upload_post",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [
+      "evaluation_mode",
+      "score_available",
+      "source_quality",
+      "degradation_reasons"
+    ],
+    "failure_statuses": [
+      422
+    ],
+    "frontend_display": "分页历史和空状态。",
+    "loading_async_semantics": "loading",
+    "method": "GET",
+    "nullable_fields": [
+      "prep_package_id",
+      "agent_run_id",
+      "total_score"
+    ],
+    "operation_id": "list_evaluations_api_v1_evaluations_get",
+    "path": "/api/v1/evaluations",
+    "request_schema": "query:limit, query:offset",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [
+      "evaluation_mode",
+      "score_available",
+      "source_quality",
+      "degradation_reasons"
+    ],
+    "failure_statuses": [
+      404,
+      422,
+      502
+    ],
+    "frontend_display": "标准/降级结果分支；无分数不得显示 0。",
+    "loading_async_semantics": "processing",
+    "method": "POST",
+    "nullable_fields": [
+      "question_db_id",
+      "custom_question_text",
+      "total_score"
+    ],
+    "operation_id": "create_evaluation_api_v1_evaluations_post",
+    "path": "/api/v1/evaluations",
+    "request_schema": "application/json:#/components/schemas/EvaluationCreate",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [
+      "evaluation_mode",
+      "score_available",
+      "source_quality",
+      "degradation_reasons"
+    ],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "展示评价模式、来源质量、分数或无分数状态。",
+    "loading_async_semantics": "loading",
+    "method": "GET",
+    "nullable_fields": [
+      "prep_package_id",
+      "question_db_id",
+      "custom_question_text",
+      "agent_run_id",
+      "total_score"
+    ],
+    "operation_id": "get_evaluation_api_v1_evaluations__answer_evaluation_id__get",
+    "path": "/api/v1/evaluations/{answer_evaluation_id}",
+    "request_schema": "path:answer_evaluation_id",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "可选面经创建；允许跳过。",
+    "loading_async_semantics": "submitting",
+    "method": "POST",
+    "nullable_fields": [
+      "company_name",
+      "role_name"
+    ],
+    "operation_id": "create_experience_api_v1_experiences_post",
+    "path": "/api/v1/experiences",
+    "request_schema": "application/json:#/components/schemas/ExperienceCreate",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422,
+      502
+    ],
+    "frontend_display": "显示解析步骤并深链 Agent run。",
+    "loading_async_semantics": "processing",
+    "method": "POST",
+    "nullable_fields": [],
+    "operation_id": "parse_experience_api_v1_experiences__interview_experience_id__parse_post",
+    "path": "/api/v1/experiences/{interview_experience_id}/parse",
+    "request_schema": "path:interview_experience_id",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [],
+    "frontend_display": "应用可用性指示；失败时提供刷新。",
+    "loading_async_semantics": "immediate",
+    "method": "GET",
+    "nullable_fields": [],
+    "operation_id": "health_check_api_v1_health_get",
+    "path": "/api/v1/health",
+    "request_schema": "none",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "创建 JD 记录并保留返回 ID。",
+    "loading_async_semantics": "submitting",
+    "method": "POST",
+    "nullable_fields": [
+      "company_name",
+      "job_url"
+    ],
+    "operation_id": "create_job_description_api_v1_jobs_post",
+    "path": "/api/v1/jobs",
+    "request_schema": "application/json:#/components/schemas/JobDescriptionCreate",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422,
+      502
+    ],
+    "frontend_display": "显示解析步骤并深链 Agent run。",
+    "loading_async_semantics": "processing",
+    "method": "POST",
+    "nullable_fields": [],
+    "operation_id": "parse_job_description_api_v1_jobs__job_description_id__parse_post",
+    "path": "/api/v1/jobs/{job_description_id}/parse",
+    "request_schema": "path:job_description_id",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422,
+      502
+    ],
+    "frontend_display": "显示多步骤进度；成功后进入摘要。",
+    "loading_async_semantics": "processing",
+    "method": "POST",
+    "nullable_fields": [
+      "title"
+    ],
+    "operation_id": "create_prep_package_api_v1_prep_packages_post",
+    "path": "/api/v1/prep-packages",
+    "request_schema": "application/json:#/components/schemas/PrepPackageCreate",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "展示状态、问题数和摘要。",
+    "loading_async_semantics": "loading",
+    "method": "GET",
+    "nullable_fields": [
+      "title"
+    ],
+    "operation_id": "get_prep_package_api_v1_prep_packages__prep_package_id__get",
+    "path": "/api/v1/prep-packages/{prep_package_id}",
+    "request_schema": "path:prep_package_id",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "8/8/9 标签、筛选、来源与降级说明。",
+    "loading_async_semantics": "loading",
+    "method": "GET",
+    "nullable_fields": [],
+    "operation_id": "list_questions_api_v1_prep_packages__prep_package_id__questions_get",
+    "path": "/api/v1/prep-packages/{prep_package_id}/questions",
+    "request_schema": "path:prep_package_id, query:module, query:difficulty",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422
+    ],
+    "frontend_display": "创建简历记录并保留返回 ID。",
+    "loading_async_semantics": "submitting",
+    "method": "POST",
+    "nullable_fields": [
+      "target_direction",
+      "version_label"
+    ],
+    "operation_id": "create_resume_api_v1_resumes_post",
+    "path": "/api/v1/resumes",
+    "request_schema": "application/json:#/components/schemas/ResumeCreate",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  },
+  {
+    "degradation_fields": [],
+    "failure_statuses": [
+      404,
+      422,
+      502
+    ],
+    "frontend_display": "显示解析步骤并深链 Agent run。",
+    "loading_async_semantics": "processing",
+    "method": "POST",
+    "nullable_fields": [],
+    "operation_id": "parse_resume_api_v1_resumes__resume_id__parse_post",
+    "path": "/api/v1/resumes/{resume_id}/parse",
+    "request_schema": "path:resume_id",
+    "response_schema": "runtime SuccessResponse[data]; OpenAPI currently exposes generic object"
+  }
+]

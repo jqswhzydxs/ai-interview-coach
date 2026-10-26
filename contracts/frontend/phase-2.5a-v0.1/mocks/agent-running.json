@@ -1,0 +1,75 @@
+{
+  "category": "processing",
+  "data_classification": "synthetic_non_personal",
+  "description": "Agent 运行详情处于进行中。",
+  "scenario_id": "agent-running",
+  "schema_version": "frontend-mock-v0.1",
+  "steps": [
+    {
+      "client_outcome": "completed",
+      "method": "GET",
+      "name": "running-agent",
+      "path": "/api/v1/agent-runs/00000000-0000-4000-8000-000000000501",
+      "request": {
+        "body": null,
+        "headers": {
+          "x-request-id": "mock-running-agent"
+        },
+        "query": {}
+      },
+      "response": {
+        "body": {
+          "data": {
+            "agent_run_id": "00000000-0000-4000-8000-000000000501",
+            "created_at": "2026-10-24T08:00:00Z",
+            "error_message": null,
+            "execution_mode": "mock",
+            "failure_types": {},
+            "fallback_reason": null,
+            "finished_at": null,
+            "input_summary": {
+              "keys": [
+                "jd_profile",
+                "resume_profile"
+              ]
+            },
+            "latency_ms": null,
+            "model_name": null,
+            "output_summary": {},
+            "prompt_version": null,
+            "provider": "mock",
+            "real_call_count": 0,
+            "retry_count": 0,
+            "run_type": "question_bank_generation",
+            "started_at": "2026-10-24T08:00:00Z",
+            "status": "running",
+            "steps": [
+              {
+                "action_type": "generate",
+                "agent_name": "QuestionBankAgent",
+                "agent_run_step_id": "00000000-0000-4000-8000-000000000511",
+                "created_at": "2026-10-24T08:00:00Z",
+                "error_message": null,
+                "latency_ms": null,
+                "status": "running",
+                "step_order": 1
+              }
+            ],
+            "token_usage": {
+              "input_tokens": null,
+              "output_tokens": null,
+              "total_tokens": null
+            }
+          },
+          "message": "ok",
+          "request_id": "mock-running-agent"
+        },
+        "status_code": 200
+      },
+      "ui": {
+        "retryable": false,
+        "state": "processing"
+      }
+    }
+  ]
+}

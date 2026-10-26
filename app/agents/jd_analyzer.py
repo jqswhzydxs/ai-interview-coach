@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 from app.agents.base import BaseAgent
+from app.schemas.job_description import JDProfile
 
 
 class JDAnalyzerAgent(BaseAgent):
@@ -8,6 +9,13 @@ class JDAnalyzerAgent(BaseAgent):
     prompt_version = "jd_analyzer_v0.1"
 
     async def run(self, input_data: dict) -> dict:
+        return await self.run_with_fallback(
+            input_data,
+            JDProfile,
+            lambda: self._rule_based_profile(input_data),
+        )
+
+    def _rule_based_profile(self, input_data: dict) -> dict:
         raw_text = input_data.get("raw_text", "")
         keywords = []
         for keyword in ["Python", "FastAPI", "PostgreSQL", "API", "SQLAlchemy"]:

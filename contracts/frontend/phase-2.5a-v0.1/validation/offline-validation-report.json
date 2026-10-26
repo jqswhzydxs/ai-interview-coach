@@ -1,0 +1,68 @@
+{
+  "record_type": "phase_2_5a_offline_validation_report",
+  "validated_date": "2026-10-24",
+  "status": "passed",
+  "provider_calls": 0,
+  "real_socket_attempts": 0,
+  "openapi": {
+    "sha256": "e983971aec77ddaf246efbb80637134f4fd41bfb9302fa2f3d06122430977304",
+    "repeatable_generation": "passed",
+    "operation_count": 16
+  },
+  "mocks": {
+    "schema_version": "frontend-mock-v0.1",
+    "scenario_count": 12,
+    "schema_validation": "passed",
+    "semantic_validation": "passed",
+    "sensitive_marker_scan": "passed"
+  },
+  "tests": {
+    "phase_2_5a_targeted": {
+      "passed": 10,
+      "failed": 0
+    },
+    "migration": {
+      "passed": 3,
+      "failed": 0
+    },
+    "targeted_plus_migration": {
+      "passed": 13,
+      "failed": 0
+    },
+    "full_offline": {
+      "passed": 504,
+      "skipped": 1,
+      "failed": 0,
+      "warnings": 1,
+      "duration_seconds": 318.92
+    }
+  },
+  "static_checks": {
+    "compileall": "passed",
+    "git_diff_check": "passed_with_existing_line_ending_warnings_only",
+    "new_file_whitespace_check": "passed",
+    "package_json_created": false,
+    "npm_dependencies_installed": false,
+    "prompt_v0_4_created": false
+  },
+  "frozen_assets": {
+    "verified": 30,
+    "expected": 30,
+    "changed": 0,
+    "missing": 0,
+    "matches_reference": true,
+    "report": "contracts/frontend/phase-2.5a-v0.1/validation/frozen-assets-verification.json"
+  },
+  "boundaries": {
+    "production_question_bank_agent": "unchanged",
+    "prompt_v0_3_status": "research_candidate_not_promoted",
+    "frontend_scaffold_created": false,
+    "real_backend_connected": false
+  },
+  "hashes": {
+    "contract_manifest_sha256": "821d49442900a042bdb17bbc934cf6a1baa81171814344dc3e0ac8c6284688f8",
+    "api_contract_matrix_sha256": "f30e20deccfc6fef8e50a48ad24281a4016f63de2d27595039f4cc32c09d734f",
+    "mock_catalog_sha256": "3b80756c740c02973d4f587e7a6c8c9257ec5c0286a73e3e67f5793c88b306ff"
+  },
+  "next_state": "await_phase_2_5b_stack_confirmation"
+}

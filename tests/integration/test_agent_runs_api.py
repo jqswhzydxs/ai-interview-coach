@@ -54,6 +54,11 @@ def test_get_agent_run_detail(client_and_session) -> None:
     assert data["prompt_version"] == "answer_evaluator_v0.1"
     assert [step["step_order"] for step in data["steps"]] == [1]
     assert "I built FastAPI APIs" not in str(data)
+    assert data["execution_mode"] == "mock"
+    assert data["provider"] == "mock"
+    assert data["real_call_count"] == 0
+    assert data["retry_count"] == 0
+    assert data["fallback_reason"] is None
 
 
 def test_missing_agent_run_returns_not_found(client_and_session) -> None:

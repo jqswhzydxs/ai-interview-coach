@@ -1,5 +1,6 @@
 from uuid import UUID
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.agents.harness import AgentHarness
@@ -49,8 +50,20 @@ class JobService:
         return job
 
     async def parse_job_description(
-        self, db: Session, *, job_description_id: UUID
+        self,
+        db: Session,
+        *,
+        job_description_id: UUID,
+        originating_workflow_job_id: UUID | None = None,
     ) -> tuple[JDProfile, UUID]:
+        if originating_workflow_job_id is not None:
+            existing = db.scalar(
+                select(JDProfile).where(
+                    JDProfile.originating_workflow_job_id == originating_workflow_job_id
+                )
+            )
+            if existing is not None and existing.agent_run_id is not None:
+                return existing, existing.agent_run_id
         job = db.get(JobDescription, job_description_id)
         if job is None:
             raise AppError(ErrorCode.NOT_FOUND, "Job description not found", status_code=404)
@@ -71,6 +84,7 @@ class JobService:
         )
         output = result.output
         profile = JDProfile(
+            originating_workflow_job_id=originating_workflow_job_id,
             job_description_id=job.id,
             agent_run_id=result.agent_run_id,
             schema_version=output.schema_version,

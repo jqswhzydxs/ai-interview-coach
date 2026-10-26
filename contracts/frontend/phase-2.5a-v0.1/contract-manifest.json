@@ -1,0 +1,67 @@
+{
+  "api_contract_matrix": {
+    "path": "contracts/frontend/phase-2.5a-v0.1/api-contract-matrix.json",
+    "sha256": "f30e20deccfc6fef8e50a48ad24281a4016f63de2d27595039f4cc32c09d734f"
+  },
+  "contract_version": "phase-2.5a-v0.1",
+  "created_date": "2026-10-24",
+  "frontend_scaffold_created": false,
+  "frontend_stack_adr": {
+    "alternatives": [
+      "Vue + TypeScript + Vite",
+      "Next.js + TypeScript"
+    ],
+    "recommended": "React + TypeScript + Vite",
+    "status": "awaiting_explicit_user_confirmation"
+  },
+  "frozen_external_semantics": [
+    "source_quality",
+    "score_available",
+    "evaluation_mode",
+    "degradation_reasons",
+    "fallback_reason",
+    "nullable_score",
+    "execution_mode",
+    "memory_write_blocked",
+    "standard_degraded_fallback_distinction",
+    "question_bank_final_api_schema"
+  ],
+  "known_contract_gaps_proposals_only": [
+    "Add explicit response_model declarations without changing runtime payloads.",
+    "Document the runtime ErrorResponse envelope and 404/502 responses in OpenAPI.",
+    "Expose source_quality on prep-package and question-bank reads; current fallback visibility comes from execution_mode and fallback_reason.",
+    "Expose a structured memory-write outcome when product requirements need guard-level observability.",
+    "Define backend-owned upload size and MIME limits before Phase 2.5B binds client validation.",
+    "Define polling cadence or asynchronous job semantics; current create endpoints await completion."
+  ],
+  "mock_contract": {
+    "files": {
+      "contracts/frontend/phase-2.5a-v0.1/mocks/agent-running.json": "c034b01ecf82e7bafcd44c6f458a865471bcd3c7dc04e67f41166cbfc015411c",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/empty-history.json": "5b8f0d07197ccaa834e2a50032fae3c9f389e1f6b986cd5db5afe1c66bacf7b5",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/evaluator-degraded.json": "136cbefccf85c558aacb6939635e7f5f440073a5b8377b4f3622fed173a0cd48",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/file-upload-failure.json": "ac1fb10bae8265d6af88fb7dc2870eb9cdfcb442b0d301154d771f417f84e158",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/memory-write-blocked.json": "dc4052cb77443b6b028f3844396fdc6f5987db3698181e2ff0f887be3deaa939",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/nonretryable-contract-error.json": "4eb4fc13cd27d81bb4cfca29ab3761c3f4ac3d26ad5eac06b2ff77679aa948f6",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/question-bank-fallback.json": "2346e22c9241a667292bfbada002667d8e08b2d3931fc809d1c97a878446372b",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/request-cancelled-timeout.json": "bbe3f869c4602a37938834617934c76e5e8b88df1ab3b3f38f627d1abf7bc122",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/retryable-provider-error.json": "06eade25d64c3f5c55dbf453900a79f7361a8ba4da0664199e3e0c4300369806",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/standard-evaluation.json": "341d10c94e6ae3089938e966853d5f89cd30bf098642b1853db7fef08c8b3c65",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/standard-success.json": "c6f7a5dd70da4bf81064785c588229bcfeadcad68561ab27f2a02acdfa92127f",
+      "contracts/frontend/phase-2.5a-v0.1/mocks/upstream-fallback.json": "6b3f23fd40cd84c6292444fb59938b469e70bf73fc33e3f01ab31d33b7475740"
+    },
+    "scenario_count": 12,
+    "schema_version": "frontend-mock-v0.1"
+  },
+  "mode": "offline_design_only",
+  "next_state": "await_phase_2_5b_stack_confirmation",
+  "npm_dependencies_installed": false,
+  "openapi": {
+    "operation_count": 16,
+    "path": "contracts/frontend/phase-2.5a-v0.1/openapi.json",
+    "sha256": "e983971aec77ddaf246efbb80637134f4fd41bfb9302fa2f3d06122430977304"
+  },
+  "production_question_bank_agent": "unchanged",
+  "prompt_v0_3_status": "research_candidate_not_promoted",
+  "provider_calls": 0,
+  "record_type": "phase_2_5a_frontend_contract_manifest"
+}

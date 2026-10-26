@@ -10,6 +10,14 @@ from app.db.models.question import InterviewQuestion, RecommendedQuestion
 from app.db.models.resume import Resume, ResumeProfile
 from app.db.models.source_document import SourceDocument
 from app.db.models.user import User
+from app.db.models.workflow import (
+    AnswerSubmission,
+    PrepPackageRequest,
+    WorkflowJob,
+    WorkflowJobAttempt,
+    WorkflowJobResult,
+    WorkflowJobStage,
+)
 
 __all__ = [
     "AgentRun",
@@ -29,5 +37,11 @@ __all__ = [
     "ResumeProfile",
     "SourceDocument",
     "User",
+    "AnswerSubmission",
+    "PrepPackageRequest",
+    "WorkflowJob",
+    "WorkflowJobAttempt",
+    "WorkflowJobResult",
+    "WorkflowJobStage",
 ]
 

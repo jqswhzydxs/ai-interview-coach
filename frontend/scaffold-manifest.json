@@ -1,0 +1,57 @@
+{
+  "artifact_hashes": {
+    "generated_openapi_types_sha256": "fdf06b8e9cced4a0063881778848b1a62f80aa8bebd853de7e39d37098a479f0",
+    "mock_service_worker_sha256": "d64ddbbd4670681d6d57428dd384d18d1d3ea20414f6aee4059da6f41408d7e2",
+    "package_json_sha256": "a919afe8bcbda73323d935f66f96cc022333f7980072ef8ae2f886eba79d89d2",
+    "package_lock_sha256": "e736f0835ff16e7718d299fc0c774115c0925b3d2cbcf00ff0d645fd163fa11a"
+  },
+  "contract": {
+    "mock_scenario_count": 12,
+    "openapi_sha256": "e983971aec77ddaf246efbb80637134f4fd41bfb9302fa2f3d06122430977304",
+    "version": "phase-2.5a-v0.1"
+  },
+  "created_date": "2026-10-24",
+  "external_connections": {
+    "real_fastapi_requests": 0,
+    "real_provider_calls": 0,
+    "test_socket_attempts": 0
+  },
+  "frontend": {
+    "default_mock_mode": true,
+    "framework": "React 19.3.1",
+    "package_manager": "npm with package-lock.json",
+    "routing": "React Router 7.18.4",
+    "server_state": "TanStack Query 5.104.5",
+    "toolchain": "TypeScript 5.9.3 + Vite 8.3.5"
+  },
+  "frozen_boundaries": {
+    "backend_contract_modified": false,
+    "experiment_assets_modified": false,
+    "production_question_bank_agent": "unchanged",
+    "prompt_v0_3_status": "research_candidate_not_promoted"
+  },
+  "record_type": "phase_2_5b_mock_frontend_scaffold_manifest",
+  "status": "mock_scaffold_complete",
+  "validation": {
+    "axe_serious_or_critical_violations": 0,
+    "backend_offline": {
+      "passed": 504,
+      "skipped": 1
+    },
+    "contract_drift": "passed",
+    "frozen_asset_hashes": "passed",
+    "frontend_build": "passed",
+    "frontend_lint": "passed",
+    "frontend_tests": {
+      "files": 5,
+      "passed": 24
+    },
+    "frontend_typecheck": "passed",
+    "git_diff_check": "passed",
+    "migration_tests": {
+      "passed": 3
+    },
+    "mock_unmatched_request_guard": "passed",
+    "socket_guard": "passed"
+  }
+}

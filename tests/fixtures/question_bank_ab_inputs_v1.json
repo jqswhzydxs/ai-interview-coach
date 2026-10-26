@@ -1,0 +1,105 @@
+{
+  "fixture_version": "question-bank-ab-inputs-v1",
+  "provenance": "Frozen synthetic structured inputs derived from the three existing sample cases; no raw resume or JD text is included.",
+  "cases": [
+    {
+      "case_id": "backend_go_case",
+      "input": {
+        "resume_profile": {
+          "skills": ["Go", "Gin", "PostgreSQL", "Message Queue"],
+          "backend_tags": ["Go", "Gin", "PostgreSQL", "Message Queue"],
+          "projects": [
+            {
+              "name": "Synthetic Go backend service",
+              "tech_stack": ["Go", "Gin", "PostgreSQL", "Message Queue"]
+            }
+          ]
+        },
+        "jd_profile": {
+          "job_title": "Backend Engineer",
+          "hard_requirements": ["Go", "HTTP API design", "PostgreSQL", "messaging", "production debugging"],
+          "tech_keywords": ["Go", "Gin", "PostgreSQL", "Message Queue"],
+          "interview_focuses": ["goroutine safety", "queue reliability", "database indexing", "production debugging"]
+        },
+        "experience_profiles": [
+          {
+            "frequent_questions": ["goroutine safety", "queue retry strategy", "database indexes"],
+            "frequent_topics": ["concurrency", "idempotency", "query diagnosis"]
+          }
+        ],
+        "match_report": {
+          "matched_strengths": ["Go", "Gin", "PostgreSQL", "messaging"],
+          "missing_capabilities": ["documented production incident handling"],
+          "preparation_priorities": ["Go concurrency", "queue retries and idempotency", "PostgreSQL diagnosis"]
+        },
+        "preparation_goal": "Prepare for a Go backend interview with emphasis on concurrency, reliability, and production diagnosis."
+      }
+    },
+    {
+      "case_id": "backend_java_case",
+      "input": {
+        "resume_profile": {
+          "skills": ["Java", "Spring Boot", "MySQL", "Redis"],
+          "backend_tags": ["Java", "Spring Boot", "MySQL", "Redis"],
+          "projects": [
+            {
+              "name": "Synthetic Java transaction service",
+              "tech_stack": ["Java", "Spring Boot", "MySQL", "Redis"]
+            }
+          ]
+        },
+        "jd_profile": {
+          "job_title": "Java Backend Engineer",
+          "hard_requirements": ["Java", "Spring Boot", "REST API", "MySQL", "Redis"],
+          "tech_keywords": ["Java", "Spring Boot", "MySQL", "Redis"],
+          "interview_focuses": ["transaction boundaries", "cache consistency", "SQL performance", "service reliability"]
+        },
+        "experience_profiles": [
+          {
+            "frequent_questions": ["Spring transaction propagation", "Redis cache invalidation", "slow query diagnosis"],
+            "frequent_topics": ["transactions", "cache consistency", "database performance"]
+          }
+        ],
+        "match_report": {
+          "matched_strengths": ["Java", "Spring Boot", "MySQL", "Redis"],
+          "missing_capabilities": ["quantified reliability outcomes"],
+          "preparation_priorities": ["transaction trade-offs", "cache failure modes", "MySQL query analysis"]
+        },
+        "preparation_goal": "Prepare for a Java backend interview focused on transactions, caching, and database reliability."
+      }
+    },
+    {
+      "case_id": "backend_python_case",
+      "input": {
+        "resume_profile": {
+          "skills": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Pytest"],
+          "backend_tags": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy"],
+          "projects": [
+            {
+              "name": "Synthetic Python API service",
+              "tech_stack": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Pytest"]
+            }
+          ]
+        },
+        "jd_profile": {
+          "job_title": "Python Backend Engineer",
+          "hard_requirements": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "automated testing"],
+          "tech_keywords": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Pytest"],
+          "interview_focuses": ["dependency injection", "database sessions", "async boundaries", "test isolation"]
+        },
+        "experience_profiles": [
+          {
+            "frequent_questions": ["FastAPI dependency injection", "SQLAlchemy session lifecycle", "API testing"],
+            "frequent_topics": ["request lifecycle", "transaction safety", "test design"]
+          }
+        ],
+        "match_report": {
+          "matched_strengths": ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy"],
+          "missing_capabilities": ["documented high-load behavior"],
+          "preparation_priorities": ["async failure handling", "session boundaries", "integration-test isolation"]
+        },
+        "preparation_goal": "Prepare for a Python backend interview focused on FastAPI architecture, persistence boundaries, and testing."
+      }
+    }
+  ]
+}

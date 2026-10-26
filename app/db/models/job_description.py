@@ -38,6 +38,9 @@ class JDProfile(Base):
     __table_args__ = (Index("idx_jd_profiles_jd_created", "job_description_id", "created_at"),)
 
     id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
+    originating_workflow_job_id: Mapped[UUID | None] = mapped_column(
+        Uuid, ForeignKey("workflow_jobs.id"), nullable=True, unique=True
+    )
     job_description_id: Mapped[UUID] = mapped_column(
         Uuid, ForeignKey("job_descriptions.id"), nullable=False
     )

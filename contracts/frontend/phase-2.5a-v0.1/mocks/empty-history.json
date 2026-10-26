@@ -1,0 +1,40 @@
+{
+  "category": "empty",
+  "data_classification": "synthetic_non_personal",
+  "description": "没有历史评价时返回稳定空列表。",
+  "scenario_id": "empty-history",
+  "schema_version": "frontend-mock-v0.1",
+  "steps": [
+    {
+      "client_outcome": "completed",
+      "method": "GET",
+      "name": "empty-evaluation-history",
+      "path": "/api/v1/evaluations",
+      "request": {
+        "body": null,
+        "headers": {
+          "x-request-id": "mock-empty-evaluation-history"
+        },
+        "query": {
+          "limit": 20,
+          "offset": 0
+        }
+      },
+      "response": {
+        "body": {
+          "data": {
+            "items": [],
+            "total": 0
+          },
+          "message": "ok",
+          "request_id": "mock-empty-evaluation-history"
+        },
+        "status_code": 200
+      },
+      "ui": {
+        "retryable": false,
+        "state": "empty"
+      }
+    }
+  ]
+}

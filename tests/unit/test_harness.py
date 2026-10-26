@@ -88,33 +88,41 @@ async def test_harness_success_writes_run_and_step(db_session) -> None:
 
     assert result.output.answer == "ok"
     assert run.status == "succeeded"
+    assert run.provider == "mock"
+    assert run.execution_mode == "mock"
+    assert run.real_call_count == 0
+    assert run.retry_count == 0
     assert run.input_summary_json == {"keys": ["resume_text"]}
     assert len(steps) == 1
     assert steps[0].status == "succeeded"
 
 
 @pytest.mark.asyncio
-async def test_harness_retries_once_on_schema_validation_failure(db_session) -> None:
+async def test_harness_does_not_retry_agent_on_schema_validation_failure(db_session) -> None:
     harness = AgentHarness()
     agent = FlakyAgent()
 
-    result = await harness.run_agent(
-        db=db_session,
-        user_id=UUID("00000000-0000-0000-0000-000000000001"),
-        run_type="unit_test",
-        agent=agent,
-        input_data={"prompt": "test"},
-        output_schema=HarnessOutput,
-    )
+    with pytest.raises(AppError, match="Agent output validation failed"):
+        await harness.run_agent(
+            db=db_session,
+            user_id=UUID("00000000-0000-0000-0000-000000000001"),
+            run_type="unit_test",
+            agent=agent,
+            input_data={"prompt": "test"},
+            output_schema=HarnessOutput,
+        )
 
+    run = db_session.scalars(select(AgentRun).where(AgentRun.run_type == "unit_test")).first()
     steps = db_session.scalars(
         select(AgentRunStep)
-        .where(AgentRunStep.agent_run_id == result.agent_run_id)
+        .where(AgentRunStep.agent_run_id == run.id)
         .order_by(AgentRunStep.step_order)
     ).all()
 
-    assert result.output.answer == "ok after retry"
-    assert [step.status for step in steps] == ["failed", "succeeded"]
+    assert agent.calls == 1
+    assert run.status == "failed"
+    assert [step.status for step in steps] == ["failed"]
+    assert steps[0].action_type == "output_validation"
 
 
 @pytest.mark.asyncio
@@ -137,4 +145,4 @@ async def test_harness_marks_run_failed_after_retry_exhausted(db_session) -> Non
 
     assert exc_info.value.code == "AGENT_FAILED"
     assert run.status == "failed"
-    assert len(steps) == 2
+    assert len(steps) == 1

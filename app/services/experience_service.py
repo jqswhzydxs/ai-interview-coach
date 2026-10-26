@@ -1,5 +1,6 @@
 from uuid import UUID
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.agents.experience_analyzer import ExperienceAnalyzerAgent
@@ -49,8 +50,22 @@ class ExperienceService:
         return experience
 
     async def parse_experience(
-        self, db: Session, *, interview_experience_id: UUID
+        self,
+        db: Session,
+        *,
+        interview_experience_id: UUID,
+        originating_workflow_job_id: UUID | None = None,
     ) -> tuple[ExperienceProfile, UUID]:
+        if originating_workflow_job_id is not None:
+            existing = db.scalar(
+                select(ExperienceProfile).where(
+                    ExperienceProfile.originating_workflow_job_id
+                    == originating_workflow_job_id,
+                    ExperienceProfile.interview_experience_id == interview_experience_id,
+                )
+            )
+            if existing is not None and existing.agent_run_id is not None:
+                return existing, existing.agent_run_id
         experience = db.get(InterviewExperience, interview_experience_id)
         if experience is None:
             raise AppError(ErrorCode.NOT_FOUND, "Interview experience not found", status_code=404)
@@ -70,6 +85,7 @@ class ExperienceService:
         )
         output = result.output
         profile = ExperienceProfile(
+            originating_workflow_job_id=originating_workflow_job_id,
             interview_experience_id=experience.id,
             agent_run_id=result.agent_run_id,
             schema_version=output.schema_version,

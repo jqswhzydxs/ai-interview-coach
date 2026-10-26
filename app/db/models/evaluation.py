@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from uuid import UUID, uuid4
 
-from sqlalchemy import DateTime, ForeignKey, Index, Numeric, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import Uuid
 
@@ -20,6 +20,9 @@ class AnswerEvaluation(Base):
     )
 
     id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
+    originating_workflow_job_id: Mapped[UUID | None] = mapped_column(
+        Uuid, ForeignKey("workflow_jobs.id"), nullable=True, unique=True
+    )
     user_id: Mapped[UUID] = mapped_column(Uuid, ForeignKey("users.id"), nullable=False)
     prep_package_id: Mapped[UUID | None] = mapped_column(
         Uuid, ForeignKey("interview_prep_packages.id"), nullable=True
@@ -32,13 +35,30 @@ class AnswerEvaluation(Base):
     agent_run_id: Mapped[UUID | None] = mapped_column(
         Uuid, ForeignKey("agent_runs.id"), nullable=True
     )
-    total_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
-    relevance_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
-    technical_accuracy_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
-    project_specificity_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
-    structure_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
-    communication_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
-    risk_control_score: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
+    evaluation_mode: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="standard"
+    )
+    score_available: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    source_quality: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="unknown"
+    )
+    source_context_json: Mapped[dict] = mapped_column(JsonDict, default=dict)
+    degradation_reasons_json: Mapped[list] = mapped_column(JsonDict, default=list)
+    total_score: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
+    relevance_score: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
+    technical_accuracy_score: Mapped[Decimal | None] = mapped_column(
+        Numeric(5, 2), nullable=True
+    )
+    project_specificity_score: Mapped[Decimal | None] = mapped_column(
+        Numeric(5, 2), nullable=True
+    )
+    structure_score: Mapped[Decimal | None] = mapped_column(Numeric(5, 2), nullable=True)
+    communication_score: Mapped[Decimal | None] = mapped_column(
+        Numeric(5, 2), nullable=True
+    )
+    risk_control_score: Mapped[Decimal | None] = mapped_column(
+        Numeric(5, 2), nullable=True
+    )
     strengths_json: Mapped[list] = mapped_column(JsonDict, default=list)
     improvement_points_json: Mapped[list] = mapped_column(JsonDict, default=list)
     risks_json: Mapped[list] = mapped_column(JsonDict, default=list)
@@ -48,4 +68,3 @@ class AnswerEvaluation(Base):
     memory_update_json: Mapped[dict] = mapped_column(JsonDict, default=dict)
     evaluation_json: Mapped[dict] = mapped_column(JsonDict, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
-

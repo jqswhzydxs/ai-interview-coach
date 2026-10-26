@@ -1,0 +1,128 @@
+{
+  "category": "standard",
+  "data_classification": "synthetic_non_personal",
+  "description": "标准评价包含真实可用的总分和维度分。",
+  "scenario_id": "standard-evaluation",
+  "schema_version": "frontend-mock-v0.1",
+  "steps": [
+    {
+      "client_outcome": "completed",
+      "method": "GET",
+      "name": "standard-evaluation-detail",
+      "path": "/api/v1/evaluations/00000000-0000-4000-8000-000000000601",
+      "request": {
+        "body": null,
+        "headers": {
+          "x-request-id": "mock-standard-evaluation-detail"
+        },
+        "query": {}
+      },
+      "response": {
+        "body": {
+          "data": {
+            "agent_run_id": "00000000-0000-4000-8000-000000000501",
+            "answer_evaluation_id": "00000000-0000-4000-8000-000000000601",
+            "created_at": "2026-10-24T08:00:00Z",
+            "custom_question_text": null,
+            "degradation_reasons": [],
+            "evaluation": {
+              "agent_name": "AnswerEvaluatorAgent",
+              "degradation_reasons": [],
+              "dimension_scores": [
+                {
+                  "max_score": 20,
+                  "name": "relevance",
+                  "reason": "回答围绕题目展开。",
+                  "score": 17
+                },
+                {
+                  "max_score": 20,
+                  "name": "technical_accuracy",
+                  "reason": "技术说明基本准确。",
+                  "score": 16
+                },
+                {
+                  "max_score": 20,
+                  "name": "project_specificity",
+                  "reason": "包含可验证的项目细节。",
+                  "score": 15
+                },
+                {
+                  "max_score": 20,
+                  "name": "structure",
+                  "reason": "表达结构清晰。",
+                  "score": 16
+                },
+                {
+                  "max_score": 20,
+                  "name": "communication",
+                  "reason": "关键信息易于理解。",
+                  "score": 16
+                }
+              ],
+              "evaluation_mode": "standard",
+              "follow_up_questions": [
+                "你如何验证这个权衡的效果？"
+              ],
+              "generated_at": "2026-10-24T08:00:00Z",
+              "improved_answer": "示例改写内容。",
+              "improvement_points": [
+                "补充决策依据"
+              ],
+              "memory_update": {
+                "confidence": 0.84,
+                "content": "需要继续练习技术权衡表达。",
+                "write_decision": "write"
+              },
+              "next_practice_suggestion": "围绕约束、选择和结果进行练习。",
+              "overall_comment": "当前结果仅用于离线界面状态验证。",
+              "prompt_version": "answer_evaluator_v0.1",
+              "question_id": "professional_01",
+              "question_text": "请说明一次后端接口设计中的关键权衡。",
+              "risks": [],
+              "schema_version": "0.1",
+              "score_available": true,
+              "source_quality": "trusted",
+              "strengths": [
+                "结构清楚"
+              ],
+              "total_score": 80,
+              "user_answer": "示例回答仅用于合同测试，不对应真实个人经历。"
+            },
+            "evaluation_mode": "standard",
+            "follow_up_questions": [
+              "你如何验证这个权衡的效果？"
+            ],
+            "improved_answer": "示例改写内容。",
+            "improvement_points": [
+              "补充决策依据"
+            ],
+            "memory_update": {
+              "confidence": 0.84,
+              "content": "需要继续练习技术权衡表达。",
+              "write_decision": "write"
+            },
+            "next_practice_suggestion": "围绕约束、选择和结果进行练习。",
+            "prep_package_id": "00000000-0000-4000-8000-000000000401",
+            "question_db_id": "00000000-0000-4000-8000-000000000701",
+            "risks": [],
+            "score_available": true,
+            "source_quality": "trusted",
+            "strengths": [
+              "结构清楚"
+            ],
+            "total_score": 80,
+            "user_answer": "示例回答仅用于合同测试，不对应真实个人经历。"
+          },
+          "message": "ok",
+          "request_id": "mock-standard-evaluation-detail"
+        },
+        "status_code": 200
+      },
+      "ui": {
+        "retryable": false,
+        "state": "success"
+      }
+    }
+  ]
+}

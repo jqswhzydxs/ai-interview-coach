@@ -1,0 +1,997 @@
+{
+  "category": "fallback",
+  "data_classification": "synthetic_non_personal",
+  "description": "题库由 fallback 产生，题目仍可浏览但来源质量必须可见。",
+  "scenario_id": "question-bank-fallback",
+  "schema_version": "frontend-mock-v0.1",
+  "steps": [
+    {
+      "client_outcome": "completed",
+      "method": "GET",
+      "name": "question-fallback-run",
+      "path": "/api/v1/agent-runs/00000000-0000-4000-8000-000000000501",
+      "request": {
+        "body": null,
+        "headers": {
+          "x-request-id": "mock-question-fallback-run"
+        },
+        "query": {}
+      },
+      "response": {
+        "body": {
+          "data": {
+            "agent_run_id": "00000000-0000-4000-8000-000000000501",
+            "created_at": "2026-10-24T08:00:00Z",
+            "error_message": null,
+            "execution_mode": "fallback",
+            "failure_types": {},
+            "fallback_reason": {
+              "code": "question_bank_fallback",
+              "retryable": true,
+              "stage": "question_bank"
+            },
+            "finished_at": "2026-10-24T08:00:02Z",
+            "input_summary": {
+              "keys": [
+                "jd_profile",
+                "resume_profile"
+              ]
+            },
+            "latency_ms": 1840,
+            "model_name": "configured-model",
+            "output_summary": {
+              "question_count": 25
+            },
+            "prompt_version": "production-default",
+            "provider": "configured-provider",
+            "real_call_count": 1,
+            "retry_count": 0,
+            "run_type": "question_bank_generation",
+            "started_at": "2026-10-24T08:00:00Z",
+            "status": "succeeded",
+            "steps": [
+              {
+                "action_type": "generate",
+                "agent_name": "QuestionBankAgent",
+                "agent_run_step_id": "00000000-0000-4000-8000-000000000511",
+                "created_at": "2026-10-24T08:00:00Z",
+                "error_message": null,
+                "latency_ms": 1840,
+                "status": "succeeded",
+                "step_order": 1
+              }
+            ],
+            "token_usage": {
+              "input_tokens": 480,
+              "output_tokens": 720,
+              "total_tokens": 1200
+            }
+          },
+          "message": "ok",
+          "request_id": "mock-question-fallback-run"
+        },
+        "status_code": 200
+      },
+      "ui": {
+        "reason_message": "题库生成使用了安全 fallback，可继续浏览并查看运行详情。",
+        "retryable": false,
+        "source_quality_display": {
+          "derived_from": "execution_mode",
+          "label": "降级来源",
+          "value": "degraded"
+        },
+        "state": "degraded"
+      }
+    },
+    {
+      "client_outcome": "completed",
+      "method": "GET",
+      "name": "fallback-question-bank",
+      "path": "/api/v1/prep-packages/00000000-0000-4000-8000-000000000401/questions",
+      "request": {
+        "body": null,
+        "headers": {
+          "x-request-id": "mock-fallback-question-bank"
+        },
+        "query": {}
+      },
+      "response": {
+        "body": {
+          "data": {
+            "items": [
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000001",
+                "question_id": "self_intro_01",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 1）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 1,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000002",
+                "question_id": "self_intro_02",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 2）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 2,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000003",
+                "question_id": "self_intro_03",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 3）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 3,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000004",
+                "question_id": "self_intro_04",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 4）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 4,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000005",
+                "question_id": "self_intro_05",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 5）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 5,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000006",
+                "question_id": "self_intro_06",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 6）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 6,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000007",
+                "question_id": "self_intro_07",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 7）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 7,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "self_intro",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000008",
+                "question_id": "self_intro_08",
+                "question_text": "请结合一个安全的示例事实说明你的后端能力重点（示例 8）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 8,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000009",
+                "question_id": "professional_01",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 1）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 9,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000010",
+                "question_id": "professional_02",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 2）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 10,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000011",
+                "question_id": "professional_03",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 3）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 11,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000012",
+                "question_id": "professional_04",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 4）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 12,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000013",
+                "question_id": "professional_05",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 5）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 13,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000014",
+                "question_id": "professional_06",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 6）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 14,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000015",
+                "question_id": "professional_07",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 7）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 15,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "professional",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000016",
+                "question_id": "professional_08",
+                "question_text": "请分析一个后端技术对象的约束与权衡（示例 8）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 16,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000017",
+                "question_id": "behavior_project_01",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 1）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 17,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000018",
+                "question_id": "behavior_project_02",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 2）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 18,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000019",
+                "question_id": "behavior_project_03",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 3）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 19,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000020",
+                "question_id": "behavior_project_04",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 4）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 20,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000021",
+                "question_id": "behavior_project_05",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 5）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 21,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000022",
+                "question_id": "behavior_project_06",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 6）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 22,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "medium",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000023",
+                "question_id": "behavior_project_07",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 7）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 23,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "hard",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000024",
+                "question_id": "behavior_project_08",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 8）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 24,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              },
+              {
+                "answer_framework": "背景、约束、选择、结果",
+                "difficulty": "basic",
+                "follow_up_questions": [
+                  "你会如何验证结果？"
+                ],
+                "jd_keywords": [
+                  "backend"
+                ],
+                "module": "behavior_project",
+                "preparation_advice": "准备可验证的约束和结果。",
+                "purpose": "验证结构化面试问题的展示合同。",
+                "question_db_id": "00000000-0000-4000-8000-000000000025",
+                "question_id": "behavior_project_09",
+                "question_text": "请复盘一个项目决策、难点与结果（示例 9）。",
+                "scoring_anchors": [
+                  {
+                    "max_score": 5,
+                    "name": "clarity",
+                    "reason": "表达清楚",
+                    "score": 4
+                  }
+                ],
+                "sort_order": 25,
+                "source_refs": [
+                  {
+                    "quote": null,
+                    "source_id": null,
+                    "source_type": "inferred",
+                    "summary": "合成合同测试事实，不对应真实个人数据。"
+                  }
+                ],
+                "source_type": "inferred",
+                "star_template": "S/T/A/R"
+              }
+            ],
+            "total": 25
+          },
+          "message": "ok",
+          "request_id": "mock-fallback-question-bank"
+        },
+        "status_code": 200
+      },
+      "ui": {
+        "reason_message": "题库生成使用了安全 fallback，可继续浏览并查看运行详情。",
+        "retryable": false,
+        "source_quality_display": {
+          "derived_from": "linked_agent_run.execution_mode",
+          "label": "降级来源",
+          "value": "degraded"
+        },
+        "state": "degraded"
+      }
+    }
+  ]
+}

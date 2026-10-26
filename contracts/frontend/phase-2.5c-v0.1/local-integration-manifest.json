@@ -1,0 +1,113 @@
+{
+  "record_type": "phase_2_5c_local_api_integration_manifest",
+  "version": "0.1",
+  "recorded_date": "2026-10-26",
+  "status": "phase_2_5c_local_api_integration_complete",
+  "scope": {
+    "api": "local FastAPI over loopback HTTP",
+    "database": "per-run temporary SQLite",
+    "uploads": "per-run temporary directory",
+    "provider": "mock",
+    "production_deployment": false
+  },
+  "required_environment": {
+    "APP_ENV": "test",
+    "LLM_PROVIDER": "mock",
+    "RUN_REAL_LLM_ACCEPTANCE": "false",
+    "SAVE_FULL_LLM_LOGS": "false",
+    "provider_credentials": "cleared",
+    "cors_credentials": false
+  },
+  "frozen_inputs": {
+    "phase_2_5a_openapi_sha256": "e983971aec77ddaf246efbb80637134f4fd41bfb9302fa2f3d06122430977304",
+    "phase_2_5b_package_lock_historical_sha256": "e736f0835ff16e7718d299fc0c774115c0925b3d2cbcf00ff0d645fd163fa11a",
+    "phase_2_4_protected_assets_manifest_sha256": "4e157fc3548beacff5856976e24d10544c5773eae04106a2952ceb72ffacb901",
+    "production_question_bank_agent_sha256": "cefd190638efe3b1a4c4ce967907c10ef9b183cf47cf40b827d42ae816912bda",
+    "prompt_v0_1_sha256": "125a90d896d481b616955da5aebf7a5bdfb32be252c9ced0f47ed71c7ba4cde3",
+    "prompt_v0_2_sha256": "f62170fcfab44a74c153f1c0af5195acf227ab2c8d2acce28178792890e82c4e",
+    "prompt_v0_3_sha256": "c47e886be0d40abd5f42241eee9b8f6aa89d16c95036ca546da4f47d5ad18b7e",
+    "production_default_agent": "QuestionBankAgent",
+    "phase_2_4_verified_file_count": 30,
+    "phase_2_4_changed_files": []
+  },
+  "dependency_lock": {
+    "package_lock_sha256": "48e80128e017f21c2938ee714bf580abd02e5a82a63b629aeb672b398205c285",
+    "playwright_version": "1.61.1",
+    "browser": "Chromium/Chrome 156.0.8078.47",
+    "browser_projects": [
+      "chromium"
+    ]
+  },
+  "validation": {
+    "frontend_vitest": {
+      "status": "passed",
+      "files": 6,
+      "tests": 30
+    },
+    "playwright_real_api": {
+      "status": "passed",
+      "tests": 3
+    },
+    "playwright_visual": {
+      "status": "passed",
+      "tests": 12,
+      "viewports": [
+        375,
+        768,
+        1024,
+        1440
+      ]
+    },
+    "backend_full": {
+      "status": "passed",
+      "passed": 510,
+      "skipped": 1,
+      "warnings": 1
+    },
+    "cors_and_upload": {
+      "status": "passed",
+      "tests": 13
+    },
+    "migrations": {
+      "status": "passed",
+      "tests": 3,
+      "upgrade_downgrade": true
+    },
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "compileall": "passed",
+    "git_diff_check": "passed",
+    "openapi_drift": false,
+    "mock_scenarios_validated": 12,
+    "axe_serious_or_critical": 0,
+    "non_loopback_socket_attempts": 0,
+    "provider_calls": 0,
+    "manual_visual_review": "passed"
+  },
+  "browser_baselines_sha256": {
+    "frontend/e2e/__screenshots__/real-api/real-api-happy-path.png": "e415555ac8628daf8d5030023c45ab1f08327f392e5b080a0148b84100ac939f",
+    "frontend/e2e/__screenshots__/visual/degraded-no-score.png": "416b33b2a75e22937315acbc9ac850d06e12455311da3f6cf07d6dbc2829dca9",
+    "frontend/e2e/__screenshots__/visual/loading.png": "20414806fb51b1eb5e338e869982aae8344dfc07cff000b0785a947cb0733306",
+    "frontend/e2e/__screenshots__/visual/memory-blocked.png": "44c267b1efad7e0ea813148ce4a7dd19805086c5b2bae7c216d7352be1721e23",
+    "frontend/e2e/__screenshots__/visual/not-found.png": "8b9941c2f37334fa10b4230faf516ed09b9bc9338866e03b86b35de341091080",
+    "frontend/e2e/__screenshots__/visual/question-bank-fallback.png": "ba24e37023e9e1000f857a4465d61827fdb52e864276fbdc11ef815900755a0f",
+    "frontend/e2e/__screenshots__/visual/retryable-error.png": "10a27e5d31c8a5e41c1f36255d1f3b6c29f78bcd48fa841ad6f3a75de6b3adba",
+    "frontend/e2e/__screenshots__/visual/standard-evaluation-1024.png": "551ab364ba9902b58b030a92e2f70b0577c90e23ea1bc873b31ba08e9b300c73",
+    "frontend/e2e/__screenshots__/visual/standard-evaluation-1440.png": "958147f631236c8d603805d5cedad901d513756444285980b3657f026f840b11",
+    "frontend/e2e/__screenshots__/visual/standard-evaluation-375.png": "9eb4f75fcaca23142e756ad7df022bd89e2d2e4e99d5a7bd94640fda427c435b",
+    "frontend/e2e/__screenshots__/visual/standard-evaluation-768.png": "0781a0408791179a1a9977044ffaf4e1d48814e3f29e079453f9a1cb6120fa36",
+    "frontend/e2e/__screenshots__/visual/upstream-fallback.png": "e9e2146902cf75f56e597af99f63a440be31b46fb957f18784776ebde1e740cb"
+  },
+  "boundaries": {
+    "root_env_modified": false,
+    "prompts_modified": false,
+    "production_agent_switched": false,
+    "historical_experiments_modified": false,
+    "real_provider_accessed": false,
+    "phase_2_5d_started": false
+  },
+  "known_proposal_only": [
+    "Convert synchronous create/parse/prep/evaluation POST operations to explicit asynchronous jobs in a separately authorized backend contract version."
+  ]
+}

@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from uuid import UUID, uuid4
 
-from sqlalchemy import Date, DateTime, ForeignKey, Index, String, Text
+from sqlalchemy import Date, DateTime, ForeignKey, Index, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import Uuid
 
@@ -38,9 +38,17 @@ class ExperienceProfile(Base):
     __tablename__ = "experience_profiles"
     __table_args__ = (
         Index("idx_experience_profiles_exp_created", "interview_experience_id", "created_at"),
+        UniqueConstraint(
+            "originating_workflow_job_id",
+            "interview_experience_id",
+            name="uq_experience_profiles_workflow_experience",
+        ),
     )
 
     id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
+    originating_workflow_job_id: Mapped[UUID | None] = mapped_column(
+        Uuid, ForeignKey("workflow_jobs.id"), nullable=True
+    )
     interview_experience_id: Mapped[UUID] = mapped_column(
         Uuid, ForeignKey("interview_experiences.id"), nullable=False
     )

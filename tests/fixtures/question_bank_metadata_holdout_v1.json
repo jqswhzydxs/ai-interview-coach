@@ -1,0 +1,539 @@
+{
+  "fixture_version": "phase-2.4c-authored-holdout-v1",
+  "usage": "holdout only; separate from frozen run2 replay; no historical quality scores",
+  "cases": [
+    {
+      "case_id": "holdout_rust_resources",
+      "provenance": "independently authored synthetic holdout; no run2 questions or historical scores",
+      "input": {
+        "resume_profile": {
+          "skills": [
+            "Rust",
+            "Axum",
+            "SQLite"
+          ],
+          "projects": [
+            {
+              "name": "Local audit collector",
+              "tech_stack": [
+                "Rust",
+                "SQLite"
+              ]
+            }
+          ]
+        },
+        "jd_profile": {
+          "job_title": "Backend Engineer",
+          "tech_keywords": [
+            "Rust",
+            "Axum",
+            "SQLite"
+          ],
+          "hard_requirements": [
+            "Rust",
+            "Axum",
+            "SQLite"
+          ],
+          "interview_focuses": [
+            "resource ownership",
+            "bounded workloads"
+          ]
+        },
+        "experience_profiles": [],
+        "match_report": {
+          "matched_strengths": [
+            "Rust",
+            "Axum",
+            "SQLite"
+          ],
+          "missing_capabilities": [
+            "documented production outages"
+          ],
+          "preparation_priorities": [
+            "resource ownership",
+            "bounded workloads"
+          ]
+        },
+        "preparation_goal": "Practice evidence-grounded backend reasoning without inventing experience."
+      },
+      "draft": {
+        "self_intro_questions": [
+          {
+            "question_text": "Introduce the documented scope of your Rust work without claiming production scale."
+          },
+          {
+            "question_text": "Why does a role involving resource ownership appeal to you?"
+          },
+          {
+            "question_text": "Which part of the Local audit collector can you explain from direct evidence?"
+          },
+          {
+            "question_text": "How would you describe your current familiarity with Axum honestly?"
+          },
+          {
+            "question_text": "What concrete practice helped you learn a difficult Rust concept?"
+          },
+          {
+            "question_text": "Explain a skill gap you would disclose before joining this backend team."
+          },
+          {
+            "question_text": "How would you connect a local tool project to a service engineering role?"
+          },
+          {
+            "question_text": "What learning goal would you set for the next month and how would you check progress?"
+          }
+        ],
+        "professional_questions": [
+          {
+            "question_text": "How would you bound a Rust worker queue so cancelled requests do not leave unlimited background work?"
+          },
+          {
+            "question_text": "Explain the ownership constraints when a borrowed value must outlive an asynchronous operation."
+          },
+          {
+            "question_text": "How would you diagnose SQLite writes that intermittently fail while several requests update a record?"
+          },
+          {
+            "question_text": "Design an Axum endpoint that validates a payload without leaking internal error details."
+          },
+          {
+            "question_text": "What tests would expose a resource cleanup bug when a task is cancelled halfway through processing?"
+          },
+          {
+            "question_text": "Compare optimistic version checks with serial execution for conflicting record updates."
+          },
+          {
+            "question_text": "How would you separate configuration, application logic and persistence in a small service?"
+          },
+          {
+            "question_text": "What observable evidence would distinguish CPU saturation from waiting for storage?"
+          }
+        ],
+        "behavior_project_questions": [
+          {
+            "question_text": "Describe a real example of learning from a compiler error; separate the original mistake from your correction."
+          },
+          {
+            "question_text": "If you have never managed a production outage, how would you state that limitation and present a clearly hypothetical diagnostic plan?"
+          },
+          {
+            "question_text": "Walk through a persistence decision in the Local audit collector using only details you can substantiate."
+          },
+          {
+            "question_text": "Tell me about feedback that caused you to simplify a design."
+          },
+          {
+            "question_text": "Explain how you checked that a resource was released after an unsuccessful operation."
+          },
+          {
+            "question_text": "Describe a disagreement about an interface and the evidence that changed the decision."
+          },
+          {
+            "question_text": "How would you propose a reliability improvement without inventing before-and-after measurements?"
+          },
+          {
+            "question_text": "Give an example of discovering an incorrect assumption while testing a local tool."
+          },
+          {
+            "question_text": "What would you change in your next iteration, and which acceptance check would establish progress?"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "holdout_role_transition",
+      "provenance": "independently authored synthetic holdout; no run2 questions or historical scores",
+      "input": {
+        "resume_profile": {
+          "skills": [
+            "Python"
+          ],
+          "projects": [
+            {
+              "name": "Legacy exporter",
+              "tech_stack": [
+                "Python"
+              ]
+            }
+          ]
+        },
+        "jd_profile": {
+          "job_title": "Backend Engineer",
+          "tech_keywords": [
+            "Go",
+            "PostgreSQL"
+          ],
+          "hard_requirements": [
+            "Go",
+            "PostgreSQL"
+          ],
+          "interview_focuses": [
+            "cancellation",
+            "message processing"
+          ]
+        },
+        "experience_profiles": [],
+        "match_report": {
+          "matched_strengths": [
+            "Python"
+          ],
+          "missing_capabilities": [
+            "Go production experience"
+          ],
+          "preparation_priorities": [
+            "cancellation",
+            "message processing"
+          ]
+        },
+        "preparation_goal": "Practice evidence-grounded backend reasoning without inventing experience."
+      },
+      "draft": {
+        "self_intro_questions": [
+          {
+            "question_text": "Introduce your existing Python background and clearly separate it from your proposed move to Go."
+          },
+          {
+            "question_text": "Why are you interested in a backend role whose main language you have not used in production?"
+          },
+          {
+            "question_text": "Which skills from the Legacy exporter are transferable and which still require practice?"
+          },
+          {
+            "question_text": "How would you communicate an unfamiliar technology gap to an interviewer?"
+          },
+          {
+            "question_text": "Describe the process you used to learn an API from documentation."
+          },
+          {
+            "question_text": "What evidence would support your claim that you can debug unfamiliar code?"
+          },
+          {
+            "question_text": "Explain your own contribution to a small project without claiming the whole team result."
+          },
+          {
+            "question_text": "Which concrete milestones would show readiness for this role?"
+          }
+        ],
+        "professional_questions": [
+          {
+            "question_text": "How would you cancel fan-out work in Go when the parent request has already failed?"
+          },
+          {
+            "question_text": "What interleavings would you test to establish that a worker does not leak a goroutine?"
+          },
+          {
+            "question_text": "How should a consumer handle a message whose delivery lease expires before its database transaction commits?"
+          },
+          {
+            "question_text": "Design an idempotency key whose ownership remains clear across a failed delivery and a later retry."
+          },
+          {
+            "question_text": "How would you investigate a PostgreSQL query that becomes slow only for a skewed subset of parameter values?"
+          },
+          {
+            "question_text": "Compare bounded retries with immediate rejection when a downstream dependency reports a permanent permission error."
+          },
+          {
+            "question_text": "Which invariants must hold when an HTTP response is sent before deferred work is finished?"
+          },
+          {
+            "question_text": "How could you test recovery paths while forbidding real network access?"
+          }
+        ],
+        "behavior_project_questions": [
+          {
+            "question_text": "Explain a real debugging experience from the Legacy exporter and identify assumptions that would change in Go."
+          },
+          {
+            "question_text": "If no queue-processing project is documented, how would you present a proposed design without representing it as past work?"
+          },
+          {
+            "question_text": "Tell me about a time you asked for help rather than guessing about unfamiliar behavior."
+          },
+          {
+            "question_text": "Describe how you established who owned a failure during a team investigation."
+          },
+          {
+            "question_text": "Explain a case where a test revealed that a successful return value did not prove the intended side effect."
+          },
+          {
+            "question_text": "How would you discuss a missing performance measurement honestly?"
+          },
+          {
+            "question_text": "Tell me about a technical disagreement that you resolved by running a small experiment."
+          },
+          {
+            "question_text": "Walk through a decision to postpone an optimization in favor of a correctness check."
+          },
+          {
+            "question_text": "Describe how you would review your learning progress after the first month in this role."
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "holdout_java_chinese",
+      "provenance": "independently authored synthetic holdout; no run2 questions or historical scores",
+      "input": {
+        "resume_profile": {
+          "skills": [
+            "Java",
+            "Spring Boot",
+            "MySQL",
+            "Redis"
+          ],
+          "projects": [
+            {
+              "name": "Local reservation demo",
+              "tech_stack": [
+                "Java",
+                "MySQL"
+              ]
+            }
+          ]
+        },
+        "jd_profile": {
+          "job_title": "Backend Engineer",
+          "tech_keywords": [
+            "Java",
+            "Spring Boot",
+            "MySQL",
+            "Redis"
+          ],
+          "hard_requirements": [
+            "Java",
+            "Spring Boot",
+            "MySQL",
+            "Redis"
+          ],
+          "interview_focuses": [
+            "transaction boundaries",
+            "cache consistency"
+          ]
+        },
+        "experience_profiles": [],
+        "match_report": {
+          "matched_strengths": [
+            "Java",
+            "Spring Boot",
+            "MySQL",
+            "Redis"
+          ],
+          "missing_capabilities": [
+            "published reliability measurements"
+          ],
+          "preparation_priorities": [
+            "transaction boundaries",
+            "cache consistency"
+          ]
+        },
+        "preparation_goal": "Practice evidence-grounded backend reasoning without inventing experience."
+      },
+      "draft": {
+        "self_intro_questions": [
+          {
+            "question_text": "请介绍已有 Java 学习与项目经历，明确哪些内容尚无生产验证。"
+          },
+          {
+            "question_text": "你为什么希望在事务一致性方向继续成长？"
+          },
+          {
+            "question_text": "请用可核实的材料说明你最熟悉的技术，不要补造项目规模。"
+          },
+          {
+            "question_text": "你如何向不了解背景的同事介绍 Local reservation demo？"
+          },
+          {
+            "question_text": "请说明你学习一个陌生框架时如何验证理解。"
+          },
+          {
+            "question_text": "面对尚未做过的可靠性工作，你会如何说明能力边界？"
+          },
+          {
+            "question_text": "请介绍一次收到代码反馈后调整做法的经历。"
+          },
+          {
+            "question_text": "下一阶段你希望练习什么能力，准备怎样检查效果？"
+          }
+        ],
+        "professional_questions": [
+          {
+            "question_text": "在 Spring Boot 中，同一个对象内部调用另一个带事务注解的方法时，应如何验证事务边界？"
+          },
+          {
+            "question_text": "如果 MySQL 提交成功但缓存失效通知失败，你会如何设计恢复与一致性检查？"
+          },
+          {
+            "question_text": "在不使用 Redis 分布式锁的前提下，你会怎样保护同一记录的并发更新？"
+          },
+          {
+            "question_text": "请比较不同事务隔离级别，并给出能暴露读写异常的最小测试场景。"
+          },
+          {
+            "question_text": "面对索引存在但查询仍慢的问题，你会检查哪些执行计划证据？"
+          },
+          {
+            "question_text": "如何测试接口重试时不会重复扣减库存，并说明去重记录的持久化边界？"
+          },
+          {
+            "question_text": "依赖不可用时，哪些失败应尽快返回，哪些可以在受控预算内重试？"
+          },
+          {
+            "question_text": "请说明如何区分输入校验失败与内部系统错误，并避免错误响应泄漏秘密。"
+          }
+        ],
+        "behavior_project_questions": [
+          {
+            "question_text": "请用真实例子说明你如何澄清一个模糊的接口要求。"
+          },
+          {
+            "question_text": "如果材料没有记录数据库故障经历，你会如何区分真实经验与演练方案？"
+          },
+          {
+            "question_text": "请回顾一次测试推翻最初设计假设的经历。"
+          },
+          {
+            "question_text": "请介绍一次关于事务范围的讨论，你如何比较方案代价？"
+          },
+          {
+            "question_text": "遇到缺少性能数据的情况，你会如何诚实表达结果并制定补测计划？"
+          },
+          {
+            "question_text": "请说明一次协作中的职责划分，避免将团队工作全部归于个人。"
+          },
+          {
+            "question_text": "请回顾一次错误处理设计的修改，解释触发修改的证据。"
+          },
+          {
+            "question_text": "请讲一次需要在交付时间和一致性验证之间取舍的情况。"
+          },
+          {
+            "question_text": "如果再次实现同类功能，你会先增加哪项验收检查？"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "holdout_typescript_sparse",
+      "provenance": "independently authored synthetic holdout; no run2 questions or historical scores",
+      "input": {
+        "resume_profile": {
+          "skills": [],
+          "projects": []
+        },
+        "jd_profile": {
+          "job_title": "Backend Engineer",
+          "tech_keywords": [
+            "TypeScript",
+            "Node.js",
+            "Express"
+          ],
+          "hard_requirements": [
+            "TypeScript",
+            "Node.js",
+            "Express"
+          ],
+          "interview_focuses": [
+            "request validation",
+            "authorization boundaries"
+          ]
+        },
+        "experience_profiles": [],
+        "match_report": {
+          "matched_strengths": [],
+          "missing_capabilities": [
+            "documented project evidence"
+          ],
+          "preparation_priorities": [
+            "request validation",
+            "authorization boundaries"
+          ]
+        },
+        "preparation_goal": "Practice evidence-grounded backend reasoning without inventing experience."
+      },
+      "draft": {
+        "self_intro_questions": [
+          {
+            "question_text": "Introduce the experience you can actually document and identify what is still unknown."
+          },
+          {
+            "question_text": "Why would this backend role interest you even without a matching project on the supplied resume?"
+          },
+          {
+            "question_text": "How would you describe your learning plan for TypeScript without overstating competence?"
+          },
+          {
+            "question_text": "What evidence would you gather before presenting yourself as ready for this role?"
+          },
+          {
+            "question_text": "Which engineering habit could you demonstrate with a small reproducible exercise?"
+          },
+          {
+            "question_text": "How do you explain the limits of an untested design to a teammate?"
+          },
+          {
+            "question_text": "What would you want a mentor to review during your first implementation?"
+          },
+          {
+            "question_text": "How would you define a realistic near-term growth goal?"
+          }
+        ],
+        "professional_questions": [
+          {
+            "question_text": "Compare authentication with authorization when different users request the same resource."
+          },
+          {
+            "question_text": "How would you validate an Express request while ensuring credentials never appear in error logs?"
+          },
+          {
+            "question_text": "What makes a retry unsafe when a write may have succeeded before the connection was lost?"
+          },
+          {
+            "question_text": "How would you test an authorization boundary while every downstream dependency is replaced by a local fake?"
+          },
+          {
+            "question_text": "Explain how a Node.js service can remain responsive while a resource-intensive task is running."
+          },
+          {
+            "question_text": "What evidence would you use to diagnose an endpoint that fails only after repeated requests?"
+          },
+          {
+            "question_text": "How would you design configuration loading so a missing secret fails safely without exposing its value?"
+          },
+          {
+            "question_text": "Which acceptance checks would demonstrate that two tests cannot share mutable state accidentally?"
+          }
+        ],
+        "behavior_project_questions": [
+          {
+            "question_text": "If no relevant project is documented, how would you answer an experience question without fabricating a story?"
+          },
+          {
+            "question_text": "Describe a genuine situation where you corrected an unsupported claim."
+          },
+          {
+            "question_text": "Explain how you would present an example exercise as practice rather than production experience."
+          },
+          {
+            "question_text": "Tell me about feedback that changed how you validated your work."
+          },
+          {
+            "question_text": "How would you handle a request to promise a result before measuring it?"
+          },
+          {
+            "question_text": "Describe a small learning experiment and what observation would count against your hypothesis."
+          },
+          {
+            "question_text": "How do you distinguish your own decisions from suggestions made by collaborators?"
+          },
+          {
+            "question_text": "Explain a trade-off you would investigate before choosing a design, clearly labeling assumptions."
+          },
+          {
+            "question_text": "What would you do next if an integration test revealed an authorization mistake?"
+          }
+        ]
+      }
+    }
+  ]
+}

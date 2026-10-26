@@ -1,0 +1,166 @@
+{
+  "record_type": "phase_2_5d_a_architecture_decision_manifest",
+  "version": "0.1",
+  "recorded_date": "2026-10-26",
+  "mode": "offline_design_only",
+  "status": "awaiting_phase_2_5d_b_implementation_authorization",
+  "provider_calls": 0,
+  "real_network_requests": 0,
+  "code_changes_authorized": false,
+  "migration_changes_authorized": false,
+  "worker_execution_authorized": false,
+  "frozen_baseline": {
+    "phase_2_5a_openapi": {
+      "path": "contracts/frontend/phase-2.5a-v0.1/openapi.json",
+      "sha256": "e983971aec77ddaf246efbb80637134f4fd41bfb9302fa2f3d06122430977304"
+    },
+    "phase_2_5c_local_integration_manifest": {
+      "path": "contracts/frontend/phase-2.5c-v0.1/local-integration-manifest.json",
+      "sha256": "2d61326fd5c158391e7c7ac28449643029c98169300778a5bc926ebf8dc04bfd"
+    },
+    "frontend_package_lock_sha256": "48e80128e017f21c2938ee714bf580abd02e5a82a63b629aeb672b398205c285",
+    "production_question_bank_agent_sha256": "cefd190638efe3b1a4c4ce967907c10ef9b183cf47cf40b827d42ae816912bda",
+    "phase_2_4_protected_assets_manifest_sha256": "4e157fc3548beacff5856976e24d10544c5773eae04106a2952ceb72ffacb901",
+    "prompts": {
+      "question_bank_draft_agent_v0.1": "125a90d896d481b616955da5aebf7a5bdfb32be252c9ced0f47ed71c7ba4cde3",
+      "question_bank_draft_agent_v0.2": "f62170fcfab44a74c153f1c0af5195acf227ab2c8d2acce28178792890e82c4e",
+      "question_bank_draft_agent_v0.3": "c47e886be0d40abd5f42241eee9b8f6aa89d16c95036ca546da4f47d5ad18b7e"
+    },
+    "migrations": {
+      "head": "c72e3f4a5b6c",
+      "files": {
+        "alembic/versions/9c8951c88817_initial_mvp_schema.py": "6fcd9e236c7a234f315cee9a9a3c4c2940f379b57abe596911f33783542b06be",
+        "alembic/versions/a61f2b3c4d5e_add_llm_observability.py": "9ed423b755b0cb34f44195536d830363cbce292afbb56c8ccf6795f66d7d0100",
+        "alembic/versions/c72e3f4a5b6c_add_degraded_evaluation_safety.py": "21676d615e4de6536d1447878a4c450f47f29a5b5596324d51ca6113ca0b1046"
+      }
+    },
+    "production_default_agent": "QuestionBankAgent",
+    "current_long_running_api_behavior": "synchronous_wait_for_agent_completion"
+  },
+  "traceability": {
+    "requirement_count": 36,
+    "status_counts": {
+      "implemented_and_verified": 18,
+      "partially_implemented": 8,
+      "missing": 4,
+      "intentionally_deferred": 4,
+      "document_conflict": 2
+    },
+    "mvp_fully_complete": false,
+    "primary_gaps": [
+      "complete_nine_section_prep_package",
+      "prep_manual_contract_and_output",
+      "recommended_three_questions_productization",
+      "markdown_generation_and_download",
+      "durable_async_workflow",
+      "memory_read_and_reuse"
+    ]
+  },
+  "async_architecture_decision": {
+    "status": "proposed_for_phase_2_5d_b",
+    "recommended": "database_persistent_queue_with_independent_worker",
+    "score": 61,
+    "max_score": 70,
+    "percent": 87.1,
+    "alternatives": [
+      {
+        "name": "celery_or_rq_with_redis",
+        "score": 60,
+        "percent": 85.7,
+        "disposition": "scale_out_alternative"
+      },
+      {
+        "name": "fastapi_background_tasks",
+        "score": 31,
+        "percent": 44.3,
+        "disposition": "rejected_for_long_running_llm_workflows"
+      },
+      {
+        "name": "in_process_asyncio_task",
+        "score": 29,
+        "percent": 41.4,
+        "disposition": "rejected_for_durable_workflows"
+      }
+    ],
+    "production_database": "postgresql",
+    "sqlite_scope": "single_worker_local_and_test_only",
+    "delivery_semantics": "at_least_once_with_idempotent_business_writes"
+  },
+  "proposed_async_contract": {
+    "strategy": "additive_explicit_workflow_job_endpoints_under_api_v1",
+    "preserve_existing_sync_endpoints": true,
+    "prefer_respond_async_first_version": false,
+    "api_v2": "defer_until_breaking_removal_or_auth_boundary",
+    "statuses": [
+      "queued",
+      "running",
+      "succeeded",
+      "failed",
+      "cancelled"
+    ],
+    "outcome_modes": [
+      "standard",
+      "degraded"
+    ],
+    "required_headers": [
+      "Idempotency-Key",
+      "Location",
+      "Retry-After"
+    ],
+    "payload_policy": "resource_ids_first_no_copied_sensitive_bodies",
+    "worker_retry_distinct_from_user_resubmit": true,
+    "lease_heartbeat_recovery_required": true
+  },
+  "markdown_decision": {
+    "keep_in_mvp": true,
+    "renderer": "deterministic_from_persisted_data",
+    "additional_llm_calls": 0,
+    "new_prompt": false,
+    "pdf_deferred": true,
+    "stable_section_count": 9,
+    "content_hash": "sha256",
+    "atomic_write_required": true,
+    "absolute_server_paths_in_api": false,
+    "prep_manual": {
+      "assembly": "match_report_priority_plan_question_metadata_recommendations_action_items",
+      "minimum_bonus_points": 8,
+      "minimum_pitfalls": 6,
+      "underflow_policy": "incomplete_source_data_and_degraded_no_fabrication"
+    }
+  },
+  "frontend_migration": {
+    "flow": "submit_once_then_202_job_then_processing_route_then_bounded_polling_then_result_resource",
+    "post_auto_retry": false,
+    "refresh_replays_post": false,
+    "sensitive_body_persistence": "memory_only",
+    "terminal_stops_polling": true,
+    "version_new_openapi_zod_msw_playwright_visual_assets": true
+  },
+  "deployment_gate": {
+    "current_scope": "localhost_or_controlled_private_demo_only",
+    "public_deployment_allowed": false,
+    "blocking_requirements": [
+      "authentication",
+      "multi_user_data_isolation",
+      "object_level_authorization"
+    ],
+    "not_in_scope": [
+      "docker",
+      "ci_cd",
+      "cloud_deployment",
+      "real_provider_staging"
+    ],
+    "local_e2e_proves_production_readiness": false
+  },
+  "deliverables": [
+    "docs/134-phase-2.5d-a-mvp-closure-async-report-spec-v0.1.md",
+    "docs/135-phase-2.5d-a-mvp-requirements-traceability-matrix-v0.1.md",
+    "docs/136-phase-2.5d-a-async-workflow-architecture-adr-v0.1.md",
+    "docs/137-phase-2.5d-a-proposed-async-api-contract-v0.1.md",
+    "docs/138-phase-2.5d-a-markdown-report-contract-v0.1.md",
+    "docs/139-phase-2.5d-b-implementation-plan-v0.1.md",
+    "docs/140-phase-2.5d-a-risk-analysis-v0.1.md",
+    "docs/141-phase-2.5d-a-offline-design-validation-report-v0.1.md"
+  ],
+  "next_state": "awaiting_phase_2_5d_b_implementation_authorization"
+}

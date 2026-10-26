@@ -4,7 +4,7 @@ import httpx
 from app.agents.base import BaseAgent
 from app.agents.deepseek_client import DeepSeekClient
 from app.agents.kimi_client import KimiClient
-from app.agents.llm_client import LLMRequest, get_llm_client
+from app.agents.llm_client import LLMJSONError, LLMRequest, get_llm_client
 from app.agents.mock_client import MockLLMClient
 from app.core.config import get_settings
 
@@ -55,7 +55,14 @@ async def test_deepseek_provider_posts_openai_compatible_json() -> None:
         requests.append(request)
         return httpx.Response(
             200,
-            json={"choices": [{"message": {"content": '{"score": 88}'}}]},
+            json={
+                "choices": [{"message": {"content": '{"score": 88}'}}],
+                "usage": {
+                    "prompt_tokens": 12,
+                    "completion_tokens": 4,
+                    "total_tokens": 16,
+                },
+            },
         )
 
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as http_client:
@@ -72,6 +79,13 @@ async def test_deepseek_provider_posts_openai_compatible_json() -> None:
     assert requests[0].headers["authorization"] == "Bearer test-key"
     assert response.provider == "deepseek"
     assert response.content == {"score": 88}
+    assert response.usage is not None
+    assert response.usage.model_dump() == {
+        "input_tokens": 12,
+        "output_tokens": 4,
+        "total_tokens": 16,
+    }
+    assert "raw_text" not in response.model_dump()
 
 
 @pytest.mark.asyncio
@@ -99,6 +113,31 @@ async def test_kimi_provider_posts_openai_compatible_json() -> None:
     assert requests[0].headers["authorization"] == "Bearer test-key"
     assert response.provider == "kimi"
     assert response.content == {"score": 92}
+
+
+@pytest.mark.asyncio
+async def test_provider_invalid_model_json_raises_safe_parse_error() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            json={
+                "choices": [{"message": {"content": "not-json-sensitive-body"}}],
+                "usage": {"prompt_tokens": 8, "completion_tokens": 2},
+            },
+        )
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as http_client:
+        client = DeepSeekClient(
+            api_key="test-key",
+            model_name="deepseek-chat",
+            http_client=http_client,
+        )
+        with pytest.raises(LLMJSONError) as exc_info:
+            await client.generate_json(LLMRequest(system_prompt="system", user_prompt="user"))
+
+    assert "not-json-sensitive-body" not in str(exc_info.value)
+    assert exc_info.value.usage is not None
+    assert exc_info.value.usage.total_tokens == 10
 
 
 def test_base_agent_uses_llm_client_abstraction() -> None:
